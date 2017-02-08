@@ -65,7 +65,7 @@ static int8_t                sn_coap_convert_block_size(uint16_t block_size);
 static sn_coap_hdr_s        *sn_coap_protocol_copy_header(struct coap_s *handle, sn_coap_hdr_s *source_header_ptr);
 #endif
 #if ENABLE_RESENDINGS
-static void                  sn_coap_protocol_linked_list_send_msg_store(struct coap_s *handle, sn_nsdl_addr_s *dst_addr_ptr, uint16_t send_packet_data_len, uint8_t *send_packet_data_ptr, uint32_t sending_time, void *param, uint8_t *uri_path_ptr, uint8_t uri_path_len);
+static uint8_t               sn_coap_protocol_linked_list_send_msg_store(struct coap_s *handle, sn_nsdl_addr_s *dst_addr_ptr, uint16_t send_packet_data_len, uint8_t *send_packet_data_ptr, uint32_t sending_time, void *param, uint8_t *uri_path_ptr, uint8_t uri_path_len);
 static sn_nsdl_transmit_s   *sn_coap_protocol_linked_list_send_msg_search(struct coap_s *handle,sn_nsdl_addr_s *src_addr_ptr, uint16_t msg_id);
 static void                  sn_coap_protocol_linked_list_send_msg_remove(struct coap_s *handle, sn_nsdl_addr_s *src_addr_ptr, uint16_t msg_id);
 static coap_send_msg_s      *sn_coap_protocol_allocate_mem_for_msg(struct coap_s *handle, sn_nsdl_addr_s *dst_addr_ptr, uint16_t packet_data_len);
@@ -433,9 +433,12 @@ int16_t sn_coap_protocol_build(struct coap_s *handle, sn_nsdl_addr_s *dst_addr_p
     /* Check if built Message type was confirmable, only these messages are resent */
     if (src_coap_msg_ptr->msg_type == COAP_MSG_TYPE_CONFIRMABLE) {
         /* Store message to Linked list for resending purposes */
-        sn_coap_protocol_linked_list_send_msg_store(handle, dst_addr_ptr, byte_count_built, dst_packet_data_ptr,
+        if (sn_coap_protocol_linked_list_send_msg_store(handle, dst_addr_ptr, byte_count_built, dst_packet_data_ptr,
                 handle->system_time + (uint32_t)(handle->sn_coap_resending_intervall * RESPONSE_RANDOM_FACTOR),
-                param, src_coap_msg_ptr->uri_path_ptr, src_coap_msg_ptr->uri_path_len);
+                param, src_coap_msg_ptr->uri_path_ptr, src_coap_msg_ptr->uri_path_len) == 0) {
+        	//Allocation or bufferinng full issue
+        	return -4;
+        }
     }
 
 #endif /* ENABLE_RESENDINGS */
@@ -779,7 +782,7 @@ int8_t sn_coap_protocol_exec(struct coap_s *handle, uint32_t current_time)
 #if ENABLE_RESENDINGS  /* If Message resending is not used at all, this part of code will not be compiled */
 
 /**************************************************************************//**
- * \fn static void sn_coap_protocol_linked_list_send_msg_store(sn_nsdl_addr_s *dst_addr_ptr, uint16_t send_packet_data_len, uint8_t *send_packet_data_ptr, uint32_t sending_time)
+ * \fn static uint8_t sn_coap_protocol_linked_list_send_msg_store(sn_nsdl_addr_s *dst_addr_ptr, uint16_t send_packet_data_len, uint8_t *send_packet_data_ptr, uint32_t sending_time)
  *
  * \brief Stores message to Linked list for sending purposes.
 
@@ -790,9 +793,13 @@ int8_t sn_coap_protocol_exec(struct coap_s *handle, uint32_t current_time)
  * \param *send_packet_data_ptr is Packet data to be stored
  *
  * \param sending_time is stored sending time
+ *
+ * \return 0 Allocation or buffer limit reached
+ *
+ * \return 1 Msg stored properly
  *****************************************************************************/
 
-static void sn_coap_protocol_linked_list_send_msg_store(struct coap_s *handle, sn_nsdl_addr_s *dst_addr_ptr, uint16_t send_packet_data_len,
+static uint8_t sn_coap_protocol_linked_list_send_msg_store(struct coap_s *handle, sn_nsdl_addr_s *dst_addr_ptr, uint16_t send_packet_data_len,
         uint8_t *send_packet_data_ptr, uint32_t sending_time, void *param, uint8_t *uri_path_ptr, uint8_t uri_path_len)
 {
 
@@ -800,27 +807,37 @@ static void sn_coap_protocol_linked_list_send_msg_store(struct coap_s *handle, s
 
     /* If both queue parameters are "0" or resending count is "0", then re-sending is disabled */
     if (((handle->sn_coap_resending_queue_msgs == 0) && (handle->sn_coap_resending_queue_bytes == 0)) || (handle->sn_coap_resending_count == 0)) {
-        return;
+        return 1;
     }
 
     if (handle->sn_coap_resending_queue_msgs > 0) {
         if (handle->count_resent_msgs >= handle->sn_coap_resending_queue_msgs) {
-            return;
+            return 0;
         }
     }
 
     /* Count resending queue size, if buffer size is defined */
     if (handle->sn_coap_resending_queue_bytes > 0) {
         if ((sn_coap_count_linked_list_size(&handle->linked_list_resent_msgs) + send_packet_data_len) > handle->sn_coap_resending_queue_bytes) {
-            return;
+            return 0;
         }
     }
 
     /* Allocating memory for stored message */
     stored_msg_ptr = sn_coap_protocol_allocate_mem_for_msg(handle, dst_addr_ptr, send_packet_data_len);
 
-    if (stored_msg_ptr == 0) {
-        return;
+    if (!stored_msg_ptr) {
+        return 0;
+    }
+
+    if (uri_path_len) {
+    	stored_msg_ptr->send_msg_ptr->uri_path_ptr = handle->sn_coap_protocol_malloc(uri_path_len);
+    	if (stored_msg_ptr->send_msg_ptr->uri_path_ptr == NULL){
+    		sn_coap_protocol_release_allocated_send_msg_mem(handle, stored_msg_ptr);
+    		return 0;
+    	}
+    	stored_msg_ptr->send_msg_ptr->uri_path_len = uri_path_len;
+    	memcpy(stored_msg_ptr->send_msg_ptr->uri_path_ptr, uri_path_ptr, uri_path_len);
     }
 
     /* Filling of coap_send_msg_s with initialization values */
@@ -841,19 +858,10 @@ static void sn_coap_protocol_linked_list_send_msg_store(struct coap_s *handle, s
     stored_msg_ptr->coap = handle;
     stored_msg_ptr->param = param;
 
-    if (uri_path_len) {
-        stored_msg_ptr->send_msg_ptr->uri_path_ptr = handle->sn_coap_protocol_malloc(uri_path_len);
-        if (stored_msg_ptr->send_msg_ptr->uri_path_ptr == NULL){
-            return;
-        }
-        stored_msg_ptr->send_msg_ptr->uri_path_len = uri_path_len;
-        memcpy(stored_msg_ptr->send_msg_ptr->uri_path_ptr, uri_path_ptr, uri_path_len);
-    }
-
-
     /* Storing Resending message to Linked list */
     ns_list_add_to_end(&handle->linked_list_resent_msgs, stored_msg_ptr);
     ++handle->count_resent_msgs;
+    return 1;
 }
 
 /**************************************************************************//**
