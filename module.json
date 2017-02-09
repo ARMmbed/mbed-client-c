@@ -12,7 +12,7 @@
     "source/include"
   ],
   "dependencies": {
-    "libcoap": "^1.0.0"
+    "libcoap": "^4.0.0"
   },
   "targetDependencies": {}
 }
