@@ -1,5 +1,5 @@
 #
-# Makefile for combined NSDL library
+# Makefile for NSDL library
 #
 
 # Define compiler toolchain with CC or PLATFORM variables
@@ -17,12 +17,12 @@
 
 LIB = libnsdl.a
 SRCS := \
-	source/libNsdl/src/sn_grs.c \
-	source/libNsdl/src/sn_nsdl.c \
+	source/sn_grs.c \
+	source/sn_nsdl.c \
 
 override CFLAGS += -DVERSION='"$(VERSION)"'
 
-override CFLAGS += -Isource/libNsdl/src/include/
+override CFLAGS += -Isource/include/
 SERVLIB_DIR := ../libService
 override CFLAGS += -I$(SERVLIB_DIR)/libService
 override CFLAGS += -Insdl-c/

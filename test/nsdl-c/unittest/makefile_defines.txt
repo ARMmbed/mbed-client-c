@@ -17,7 +17,7 @@ INCLUDE_DIRS =\
   ../../../../yotta_modules/libcoap/libcoap\
   ../../../../yotta_modules/libcoap/source/include\
   ../../../../../libService/libService\
-  ../../../../source/libNsdl/src/include\
+  ../../../../source/include\
   /usr/include\
   $(CPPUTEST_HOME)/include\
 
