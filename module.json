@@ -9,13 +9,10 @@
   "license": "Apache-2.0",
   "extraIncludes": [
     "nsdl-c",
-    "source/libNsdl/src/include"
+    "source/include"
   ],
   "dependencies": {
-    "nanostack-libservice": "^3.0.0",
-    "mbed-trace": ">=0.2.0,<2.0.0",
-    "nanostack-randlib": "^1.2.0",
-    "libcoap": "^4.0.0"
+    "libcoap": "^1.0.0"
   },
   "targetDependencies": {}
 }
