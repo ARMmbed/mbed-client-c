@@ -26,7 +26,7 @@ override CFLAGS += -Isource/include/
 SERVLIB_DIR := ../libService
 override CFLAGS += -I$(SERVLIB_DIR)/libService
 override CFLAGS += -Insdl-c/
-override CFLAGS += -I../libcoap/libcoap/
+override CFLAGS += -I../libcoap/
 override CFLAGS += -I../libcoap/source/include/
 
 include ../libService/toolchain_rules.mk
