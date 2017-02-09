@@ -24,12 +24,12 @@
 
 #include "ns_types.h"
 #include "sn_nsdl.h"
-#include "sn_coap_header.h"
-#include "sn_coap_protocol.h"
-#include "sn_coap_protocol_internal.h"
+#include "libcoap/sn_coap_header.h"
+#include "libcoap/sn_coap_protocol.h"
+#include "source/include/sn_coap_protocol_internal.h"
 #include "sn_nsdl_lib.h"
 #include "sn_grs.h"
-#include "sn_config.h"
+#include "libcoap/sn_config.h"
 #include "mbed-trace/mbed_trace.h"
 
 #define TRACE_GROUP "coap"
