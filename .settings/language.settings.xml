@@ -8,10 +8,7 @@
 			<provider class="org.eclipse.cdt.managedbuilder.language.settings.providers.GCCBuildCommandParser" id="org.eclipse.cdt.managedbuilder.core.GCCBuildCommandParser" keep-relative-paths="false" name="CDT GCC Build Output Parser" parameter="(.*gcc)|([gc]\+\+)|(clang)|(ArmCC)" prefer-non-shared="true" resource-scope="per-project" store-entries-with-project="true">
 				<language id="org.eclipse.cdt.core.gcc">
 					<resource project-relative-path="">
-						<entry kind="includePath" name="/${ProjName}/libNsdl/src/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
-						<entry kind="includePath" name="/${ProjName}/libCoap/src/include">
+                        <entry kind="includePath" name="/${ProjName}/source/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
 						<entry kind="includePath" name="/libService/include">
@@ -97,10 +94,7 @@
 						</entry>
 					</resource>
 					<resource project-relative-path="">
-						<entry kind="includePath" name="/${ProjName}/libNsdl/src/include">
-							<flag value="VALUE_WORKSPACE_PATH"/>
-						</entry>
-						<entry kind="includePath" name="/${ProjName}/libCoap/src/include">
+                        <entry kind="includePath" name="/${ProjName}/source/include">
 							<flag value="VALUE_WORKSPACE_PATH"/>
 						</entry>
 						<entry kind="includePath" name="/libService/include">

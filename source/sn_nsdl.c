@@ -24,12 +24,12 @@
 
 #include "ns_types.h"
 #include "sn_nsdl.h"
-#include "libcoap/sn_coap_header.h"
-#include "libcoap/sn_coap_protocol.h"
+#include "mbed-coap/sn_coap_header.h"
+#include "mbed-coap/sn_coap_protocol.h"
 #include "source/include/sn_coap_protocol_internal.h"
 #include "sn_nsdl_lib.h"
 #include "sn_grs.h"
-#include "libcoap/sn_config.h"
+#include "mbed-coap/sn_config.h"
 #include "mbed-trace/mbed_trace.h"
 
 #define TRACE_GROUP "coap"
@@ -155,7 +155,7 @@ int8_t sn_nsdl_destroy(struct nsdl_s *handle)
         handle->sn_nsdl_free(handle->oma_bs_address_ptr);
     }
 
-    /* Destroy also libCoap and grs part of libNsdl */
+    /* Destroy also libmbedcoap and grs part of libNsdl */
     sn_coap_protocol_destroy(handle->grs->coap);
     sn_grs_destroy(handle->grs);
     handle->sn_nsdl_free(handle);

@@ -33,7 +33,7 @@ extern "C" {
 #define SN_NSDL_SUCCESS  0
 #define SN_NSDL_FAILURE (-1)
 
-#include "libcoap/sn_coap_header.h"
+#include "mbed-coap/sn_coap_header.h"
 
 #endif /* SN_NSDL_H_ */
 
