@@ -219,10 +219,15 @@ struct nsdl_s *sn_nsdl_init(uint8_t (*sn_nsdl_tx_cb)(struct nsdl_s *, sn_nsdl_ca
  * \brief Registers endpoint to mbed Device Server.
  * \param *handle               Pointer to nsdl-library handle
  * \param *endpoint_info_ptr    Contains endpoint information.
+ * \param *uri_query_parameters List of uri query parameters.
+ * \param *query_param_count    Count of uri query parameters.
  *
  * \return registration message ID, 0 if failed
  */
-extern uint16_t sn_nsdl_register_endpoint(struct nsdl_s *handle, sn_nsdl_ep_parameters_s *endpoint_info_ptr);
+extern uint16_t sn_nsdl_register_endpoint(struct nsdl_s *handle,
+                                          sn_nsdl_ep_parameters_s *endpoint_info_ptr,
+                                          char *uri_query_parameters[],
+                                          uint32_t query_param_count);
 
 /**
  * \fn extern uint16_t sn_nsdl_unregister_endpoint(struct nsdl_s *handle)
@@ -534,7 +539,12 @@ extern int8_t sn_nsdl_destroy(struct nsdl_s *handle);
  *
  * \return bootstrap message ID, 0 if failed
  */
-extern uint16_t sn_nsdl_oma_bootstrap(struct nsdl_s *handle, sn_nsdl_addr_s *bootstrap_address_ptr, sn_nsdl_ep_parameters_s *endpoint_info_ptr, sn_nsdl_bs_ep_info_t *bootstrap_endpoint_info_ptr);
+extern uint16_t sn_nsdl_oma_bootstrap(struct nsdl_s *handle,
+                                      sn_nsdl_addr_s *bootstrap_address_ptr,
+                                      sn_nsdl_ep_parameters_s *endpoint_info_ptr,
+                                      sn_nsdl_bs_ep_info_t *bootstrap_endpoint_info_ptr,
+                                      char *uri_query_parameters[],
+                                      uint32_t query_param_count);
 
 /**
  * \fn sn_coap_hdr_s *sn_nsdl_build_response(struct nsdl_s *handle, sn_coap_hdr_s *coap_packet_ptr, uint8_t msg_code)
