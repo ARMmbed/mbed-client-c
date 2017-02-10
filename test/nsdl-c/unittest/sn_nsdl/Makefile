@@ -4,7 +4,7 @@ COMPONENT_NAME = sn_nsdl_unit
 
 #This must be changed manually
 SRC_FILES = \
-        ../../../../source/libNsdl/src/sn_nsdl.c
+        ../../../../source/sn_nsdl.c
 
 TEST_SRC_FILES = \
 	main.cpp \
