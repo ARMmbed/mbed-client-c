@@ -116,9 +116,13 @@ bool test_sn_nsdl_init()
 
 bool test_sn_nsdl_register_endpoint()
 {
-    if( 0 != sn_nsdl_register_endpoint(NULL, NULL) ){
+    if( 0 != sn_nsdl_register_endpoint(NULL, NULL, NULL, 0) ){
         return false;
     }
+    const char *query[2];
+    query[0] = "abc=def";
+    query[1] = "123=456";
+
     sn_grs_stub.retNull = false;
     retCounter = 5;
     sn_grs_stub.expectedGrs = (struct grs_s *)malloc(sizeof(struct grs_s));
@@ -133,17 +137,17 @@ bool test_sn_nsdl_register_endpoint()
     sn_nsdl_ep_parameters_s *eptr = (sn_nsdl_ep_parameters_s*)malloc(sizeof(sn_nsdl_ep_parameters_s));
     memset(eptr, 0, sizeof(sn_nsdl_ep_parameters_s));
 
-    if( 0 != sn_nsdl_register_endpoint(handle, eptr) ){
+    if( 0 != sn_nsdl_register_endpoint(handle, eptr, query, 2) ){
         return false;
     }
 
     retCounter = 0;
-    if( 0 != sn_nsdl_register_endpoint(handle, eptr) ){
+    if( 0 != sn_nsdl_register_endpoint(handle, eptr, query, 2) ){
         return false;
     }
 
     retCounter = 1;
-    if( 0 != sn_nsdl_register_endpoint(handle, eptr) ){
+    if( 0 != sn_nsdl_register_endpoint(handle, eptr, query, 2) ){
         return false;
     }
 
@@ -168,7 +172,7 @@ bool test_sn_nsdl_register_endpoint()
     eptr->domain_name_len = 1;
     eptr->binding_and_mode = 0x07;
 
-    if( 0 != sn_nsdl_register_endpoint(handle, eptr) ){
+    if( 0 != sn_nsdl_register_endpoint(handle, eptr, query, 2) ){
         ret = false;
         goto end;
     }
@@ -191,7 +195,7 @@ bool test_sn_nsdl_register_endpoint()
     eptr->domain_name_len = 1;
     eptr->binding_and_mode = 0x07;
 
-    if( 0 != sn_nsdl_register_endpoint(handle, eptr) ){
+    if( 0 != sn_nsdl_register_endpoint(handle, eptr, query, 2) ){
         ret = false;
         goto end;
     }
@@ -213,7 +217,7 @@ bool test_sn_nsdl_register_endpoint()
     eptr->domain_name_len = 1;
     eptr->binding_and_mode = 0x07;
 
-    if( 0 != sn_nsdl_register_endpoint(handle, eptr) ){
+    if( 0 != sn_nsdl_register_endpoint(handle, eptr, query, 2) ){
         ret = false;
         goto end;
     }
@@ -235,7 +239,7 @@ bool test_sn_nsdl_register_endpoint()
     eptr->domain_name_len = 1;
     eptr->binding_and_mode = 0x07;
 
-    if( 0 != sn_nsdl_register_endpoint(handle, eptr) ){
+    if( 0 != sn_nsdl_register_endpoint(handle, eptr, query, 2) ){
         ret = false;
         goto end;
     }
@@ -257,7 +261,7 @@ bool test_sn_nsdl_register_endpoint()
     eptr->domain_name_len = 1;
     eptr->binding_and_mode = 0x07;
 
-    if( 0 != sn_nsdl_register_endpoint(handle, eptr) ){
+    if( 0 != sn_nsdl_register_endpoint(handle, eptr, query, 0) ){
         ret = false;
         goto end;
     }
@@ -289,7 +293,7 @@ bool test_sn_nsdl_register_endpoint()
 
     sn_grs_stub.expectedInfo->publish_uri = 1;
     //sn_nsdl_build_registration_body == SN_NSDL_FAILURE
-    int8_t val = sn_nsdl_register_endpoint(handle, eptr);
+    int8_t val = sn_nsdl_register_endpoint(handle, eptr, query, 2);
 
     free(sn_grs_stub.expectedInfo->static_resource_parameters->path);
 #ifndef DISABLE_INTERFACE_DESCRIPTION
@@ -317,7 +321,7 @@ bool test_sn_nsdl_register_endpoint()
     eptr->binding_and_mode = 0x06;
     retCounter = 4;
     //set_endpoint_info == -1
-    val = sn_nsdl_register_endpoint(handle, eptr);
+    val = sn_nsdl_register_endpoint(handle, eptr, query, 2);
     free(sn_grs_stub.expectedInfo->static_resource_parameters);
     free(sn_grs_stub.expectedInfo);
 
@@ -332,7 +336,7 @@ bool test_sn_nsdl_register_endpoint()
     eptr->binding_and_mode = 0x06;
     retCounter = 4;
     //set_endpoint_info == -1
-    val = sn_nsdl_register_endpoint(handle, eptr);
+    val = sn_nsdl_register_endpoint(handle, eptr, query, 2);
     if( 0 != val ){
         ret = false;
         goto end;
@@ -368,7 +372,7 @@ bool test_sn_nsdl_register_endpoint()
     sn_coap_builder_stub.expectedUint16 = 1;
     sn_coap_protocol_stub.expectedInt16 = 1;
     //passes
-    val = sn_nsdl_register_endpoint(handle, eptr);
+    val = sn_nsdl_register_endpoint(handle, eptr, query, 2);
     free(sn_grs_stub.expectedInfo->static_resource_parameters->path);
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
@@ -415,7 +419,7 @@ bool test_sn_nsdl_register_endpoint()
     sn_coap_protocol_stub.expectedInt16 = 1;
     sn_coap_protocol_stub.expectedInt8 = 1;
     //passes
-    val = sn_nsdl_register_endpoint(handle, eptr);
+    val = sn_nsdl_register_endpoint(handle, eptr, NULL, 0);
     free(sn_grs_stub.expectedInfo->static_resource_parameters->path);
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
@@ -462,7 +466,7 @@ bool test_sn_nsdl_register_endpoint()
     sn_coap_builder_stub.expectedUint16 = 1;
     sn_coap_protocol_stub.expectedInt16 = 1;
     //passes
-    val = sn_nsdl_register_endpoint(handle, eptr);
+    val = sn_nsdl_register_endpoint(handle, eptr, NULL, 0);
     free(sn_grs_stub.expectedInfo->static_resource_parameters->path);
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
@@ -507,7 +511,7 @@ bool test_sn_nsdl_register_endpoint()
     sn_coap_builder_stub.expectedUint16 = 1;
     sn_coap_protocol_stub.expectedInt16 = 1;
     //passes
-    val = sn_nsdl_register_endpoint(handle, eptr);
+    val = sn_nsdl_register_endpoint(handle, eptr, NULL, 0);
     free(sn_grs_stub.expectedInfo->static_resource_parameters->path);
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
@@ -550,7 +554,7 @@ bool test_sn_nsdl_register_endpoint()
     sn_coap_builder_stub.expectedUint16 = 1;
     sn_coap_protocol_stub.expectedInt16 = 1;
     //passes
-    val = sn_nsdl_register_endpoint(handle, eptr);
+    val = sn_nsdl_register_endpoint(handle, eptr, NULL, 0);
     free(sn_grs_stub.expectedInfo->static_resource_parameters->path);
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
@@ -595,7 +599,7 @@ bool test_sn_nsdl_register_endpoint()
     sn_coap_builder_stub.expectedUint16 = 1;
     sn_coap_protocol_stub.expectedInt16 = 1;
     //passes
-    val = sn_nsdl_register_endpoint(handle, eptr);
+    val = sn_nsdl_register_endpoint(handle, eptr, NULL, 0);
     free(sn_grs_stub.expectedInfo->static_resource_parameters->path);
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
@@ -640,7 +644,7 @@ bool test_sn_nsdl_register_endpoint()
     sn_coap_builder_stub.expectedUint16 = 1;
     sn_coap_protocol_stub.expectedInt16 = 1;
     //passes
-    val = sn_nsdl_register_endpoint(handle, eptr);
+    val = sn_nsdl_register_endpoint(handle, eptr, NULL, 0);
     free(sn_grs_stub.expectedInfo->static_resource_parameters->path);
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
@@ -685,7 +689,7 @@ bool test_sn_nsdl_register_endpoint()
     sn_coap_builder_stub.expectedUint16 = 1;
     sn_coap_protocol_stub.expectedInt16 = 1;
     //passes
-    val = sn_nsdl_register_endpoint(handle, eptr);
+    val = sn_nsdl_register_endpoint(handle, eptr, NULL, 0);
     free(sn_grs_stub.expectedInfo->static_resource_parameters->path);
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
@@ -727,7 +731,7 @@ bool test_sn_nsdl_register_endpoint()
     sn_coap_builder_stub.expectedUint16 = 1;
     sn_coap_protocol_stub.expectedInt16 = 1;
     //set_endpoint_info == -1
-    val = sn_nsdl_register_endpoint(handle, eptr);
+    val = sn_nsdl_register_endpoint(handle, eptr, NULL, 0);
     free(sn_grs_stub.expectedInfo->static_resource_parameters->path);
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
@@ -1148,9 +1152,12 @@ bool test_sn_nsdl_send_observation_notification()
 
 bool test_sn_nsdl_oma_bootstrap()
 {
-    if( 0 != sn_nsdl_oma_bootstrap(NULL, NULL, NULL, NULL)){
+    if( 0 != sn_nsdl_oma_bootstrap(NULL, NULL, NULL, NULL, NULL, 0)){
         return false;
     }
+    const char *query[2];
+    query[0] = "abc=def";
+    query[1] = "123=456";
     sn_grs_stub.retNull = false;
     retCounter = 5;
     sn_grs_stub.expectedGrs = (struct grs_s *)malloc(sizeof(struct grs_s));
@@ -1169,19 +1176,19 @@ bool test_sn_nsdl_oma_bootstrap()
     sn_nsdl_bs_ep_info_t *info = (sn_nsdl_bs_ep_info_t*)malloc(sizeof(sn_nsdl_bs_ep_info_t));
     memset(info, 0, sizeof(sn_nsdl_bs_ep_info_t));
 
-    if( 0 != sn_nsdl_oma_bootstrap(handle, addr, param, info)){
+    if( 0 != sn_nsdl_oma_bootstrap(handle, addr, param, info, query, 2)){
         return false;
     }
 
     retCounter = 0;
     sn_grs_stub.expectedInt8 = -1;
-    if( 0 != sn_nsdl_oma_bootstrap(handle, addr, param, info)){
+    if( 0 != sn_nsdl_oma_bootstrap(handle, addr, param, info, query, 2)){
         return false;
     }
 
     retCounter = 1;
     sn_grs_stub.expectedInt8 = -1;
-    if( 0 != sn_nsdl_oma_bootstrap(handle, addr, param, info)){
+    if( 0 != sn_nsdl_oma_bootstrap(handle, addr, param, info, query, 2)){
         return false;
     }
 
@@ -1189,35 +1196,35 @@ bool test_sn_nsdl_oma_bootstrap()
     sn_grs_stub.expectedInt8 = -1;
     sn_grs_stub.int8SuccessCounter = 1;
     param->binding_and_mode = 0;
-    if( 0 != sn_nsdl_oma_bootstrap(handle, addr, param, info)){
+    if( 0 != sn_nsdl_oma_bootstrap(handle, addr, param, info, query, 2)){
         return false;
     }
 
     retCounter = 1;
     sn_grs_stub.int8SuccessCounter = 2;
     param->binding_and_mode = 3;
-    if( 0 != sn_nsdl_oma_bootstrap(handle, addr, param, info)){
+    if( 0 != sn_nsdl_oma_bootstrap(handle, addr, param, info, query, 2)){
         return false;
     }
 
     retCounter = 1;
     sn_grs_stub.int8SuccessCounter = 3;
     param->binding_and_mode = 6;
-    if( 0 != sn_nsdl_oma_bootstrap(handle, addr, param, info)){
+    if( 0 != sn_nsdl_oma_bootstrap(handle, addr, param, info, query, 2)){
         return false;
     }
 
     retCounter = 2;
     sn_grs_stub.int8SuccessCounter = 3;
     param->binding_and_mode = 6;
-    if( 0 != sn_nsdl_oma_bootstrap(handle, addr, param, info)){
+    if( 0 != sn_nsdl_oma_bootstrap(handle, addr, param, info, query, 2)){
         return false;
     }
 
     retCounter = 2;
     sn_grs_stub.int8SuccessCounter = 3;
     param->binding_and_mode = 6;
-    if( 0 != sn_nsdl_oma_bootstrap(handle, addr, param, info)){
+    if( 0 != sn_nsdl_oma_bootstrap(handle, addr, param, info, query, 2)){
         return false;
     }
 
@@ -1226,7 +1233,7 @@ bool test_sn_nsdl_oma_bootstrap()
     sn_grs_stub.int8SuccessCounter = 3;
     param->binding_and_mode = 6;
     sn_coap_builder_stub.expectedUint16 = 1;
-    if( 0 != sn_nsdl_oma_bootstrap(handle, addr, param, info)){
+    if( 0 != sn_nsdl_oma_bootstrap(handle, addr, param, info, query, 2)){
         return false;
     }
 

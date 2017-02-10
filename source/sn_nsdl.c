@@ -93,7 +93,7 @@ static void             sn_nsdl_resolve_nsp_address(struct nsdl_s *handle);
 int8_t                  sn_nsdl_build_registration_body(struct nsdl_s *handle, sn_coap_hdr_s *message_ptr, uint8_t updating_registeration);
 static uint16_t         sn_nsdl_calculate_registration_body_size(struct nsdl_s *handle, uint8_t updating_registeration, int8_t *error);
 static uint8_t          sn_nsdl_calculate_uri_query_option_len(sn_nsdl_ep_parameters_s *endpoint_info_ptr, uint8_t msg_type);
-static int8_t           sn_nsdl_fill_uri_query_options(struct nsdl_s *handle, sn_nsdl_ep_parameters_s *parameter_ptr, sn_coap_hdr_s *source_msg_ptr, uint8_t msg_type);
+static int8_t           sn_nsdl_fill_uri_query_options(struct nsdl_s *handle, sn_nsdl_ep_parameters_s *parameter_ptr, sn_coap_hdr_s *source_msg_ptr, uint8_t msg_type, char *uri_queries[], uint32_t query_count);
 static int8_t           sn_nsdl_local_rx_function(struct nsdl_s *handle, sn_coap_hdr_s *coap_packet_ptr, sn_nsdl_addr_s *address_ptr);
 static int8_t           sn_nsdl_resolve_ep_information(struct nsdl_s *handle, sn_coap_hdr_s *coap_packet_ptr);
 static uint8_t          sn_nsdl_itoa_len(uint8_t value);
@@ -217,7 +217,10 @@ struct nsdl_s *sn_nsdl_init(uint8_t (*sn_nsdl_tx_cb)(struct nsdl_s *, sn_nsdl_ca
     return handle;
 }
 
-uint16_t sn_nsdl_register_endpoint(struct nsdl_s *handle, sn_nsdl_ep_parameters_s *endpoint_info_ptr)
+uint16_t sn_nsdl_register_endpoint(struct nsdl_s *handle,
+                                   sn_nsdl_ep_parameters_s *endpoint_info_ptr,
+                                   char *uri_query_parameters[],
+                                   uint32_t query_param_count)
 {
     /* Local variables */
     sn_coap_hdr_s   *register_message_ptr;
@@ -251,7 +254,8 @@ uint16_t sn_nsdl_register_endpoint(struct nsdl_s *handle, sn_nsdl_ep_parameters_
 
     /* Fill Uri-query options */
     if( SN_NSDL_FAILURE == sn_nsdl_fill_uri_query_options(handle, endpoint_info_ptr,
-                                                          register_message_ptr, SN_NSDL_EP_REGISTER_MESSAGE) ){
+                                                          register_message_ptr, SN_NSDL_EP_REGISTER_MESSAGE,
+                                                          uri_query_parameters, query_param_count) ){
         register_message_ptr->uri_path_ptr = NULL;
         sn_coap_parser_release_allocated_coap_msg_mem(handle->grs->coap, register_message_ptr);
         return 0;
@@ -447,7 +451,7 @@ uint16_t sn_nsdl_update_registration(struct nsdl_s *handle, uint8_t *lt_ptr, uin
     }
 
     /* Fill Uri-query options */
-    sn_nsdl_fill_uri_query_options(handle, &temp_parameters, register_message_ptr, SN_NSDL_EP_UPDATE_MESSAGE);
+    sn_nsdl_fill_uri_query_options(handle, &temp_parameters, register_message_ptr, SN_NSDL_EP_UPDATE_MESSAGE, NULL, 0);
 
     /* Build payload */
     if (handle->ep_information_ptr->ds_register_mode == REGISTER_WITH_RESOURCES) {
@@ -567,7 +571,9 @@ uint16_t sn_nsdl_send_observation_notification(struct nsdl_s *handle, uint8_t *t
 
 uint16_t sn_nsdl_oma_bootstrap(struct nsdl_s *handle, sn_nsdl_addr_s *bootstrap_address_ptr,
                                sn_nsdl_ep_parameters_s *endpoint_info_ptr,
-                               sn_nsdl_bs_ep_info_t *bootstrap_endpoint_info_ptr)
+                               sn_nsdl_bs_ep_info_t *bootstrap_endpoint_info_ptr,
+                               char *uri_query_parameters[],
+                               uint32_t query_param_count)
 {
 #ifndef MBED_CLIENT_DISABLE_BOOTSTRAP_FEATURE
     /* Local variables */
@@ -597,16 +603,40 @@ uint16_t sn_nsdl_oma_bootstrap(struct nsdl_s *handle, sn_nsdl_addr_s *bootstrap_
     bootstrap_coap_header.uri_path_ptr = bs_uri;
     bootstrap_coap_header.uri_path_len = sizeof(bs_uri);
 
-    uri_query_tmp_ptr = handle->sn_nsdl_alloc(endpoint_info_ptr->endpoint_name_len + BS_EP_PARAMETER_LEN);
+    size_t query_len = endpoint_info_ptr->endpoint_name_len + BS_EP_PARAMETER_LEN;
+    bool optional_params = false;
+    if (query_param_count && uri_query_parameters) {
+        optional_params = true;
+        for (uint32_t i = 0; i < query_param_count; i++) {
+            query_len += strlen(uri_query_parameters[i]);
+        }
+        query_len += query_param_count; // Reserve space for '&'
+    }
+
+    uri_query_tmp_ptr = handle->sn_nsdl_alloc(query_len);
     if (!uri_query_tmp_ptr) {
         handle->sn_nsdl_free(bootstrap_coap_header.options_list_ptr);
         return 0;
     }
 
     memcpy(uri_query_tmp_ptr, bs_ep_name, BS_EP_PARAMETER_LEN);
-    memcpy((uri_query_tmp_ptr + BS_EP_PARAMETER_LEN), endpoint_info_ptr->endpoint_name_ptr, endpoint_info_ptr->endpoint_name_len);
+    memcpy((uri_query_tmp_ptr + BS_EP_PARAMETER_LEN),
+           endpoint_info_ptr->endpoint_name_ptr,
+           endpoint_info_ptr->endpoint_name_len);
 
-    bootstrap_coap_header.options_list_ptr->uri_query_len = endpoint_info_ptr->endpoint_name_len + BS_EP_PARAMETER_LEN;
+    // Add optional parameters, parsed from the server URL.
+    if (optional_params) {
+        uint8_t *temp_ptr = uri_query_tmp_ptr;
+        temp_ptr += endpoint_info_ptr->endpoint_name_len + BS_EP_PARAMETER_LEN;
+        for (uint32_t i = 0; i < query_param_count; i++) {
+            memcpy(temp_ptr, "&", 1);
+            temp_ptr++;
+            memcpy(temp_ptr, uri_query_parameters[i], strlen(uri_query_parameters[i]));
+            temp_ptr += strlen(uri_query_parameters[i]);
+        }
+    }
+
+    bootstrap_coap_header.options_list_ptr->uri_query_len = query_len;
     bootstrap_coap_header.options_list_ptr->uri_query_ptr = uri_query_tmp_ptr;
 
     /* Save bootstrap server address */
@@ -1171,18 +1201,34 @@ static uint8_t sn_nsdl_calculate_uri_query_option_len(sn_nsdl_ep_parameters_s *e
  *
  * \return  SN_NSDL_SUCCESS = 0, Failed = -1
  */
-static int8_t sn_nsdl_fill_uri_query_options(struct nsdl_s *handle, sn_nsdl_ep_parameters_s *parameter_ptr, sn_coap_hdr_s *source_msg_ptr, uint8_t msg_type)
+static int8_t sn_nsdl_fill_uri_query_options(struct nsdl_s *handle,
+                                             sn_nsdl_ep_parameters_s *parameter_ptr,
+                                             sn_coap_hdr_s *source_msg_ptr,
+                                             uint8_t msg_type,
+                                             char *uri_queries[],
+                                             uint32_t query_count)
 {
     uint8_t *temp_ptr = NULL;
     if( !validateParameters(parameter_ptr) ){
         return SN_NSDL_FAILURE;
     }
-    source_msg_ptr->options_list_ptr->uri_query_len  = sn_nsdl_calculate_uri_query_option_len(parameter_ptr, msg_type);
-    if (source_msg_ptr->options_list_ptr->uri_query_len == 0) {
+
+    size_t query_len = sn_nsdl_calculate_uri_query_option_len(parameter_ptr, msg_type);
+    if (query_len == 0) {
         return 0;
     }
 
-    source_msg_ptr->options_list_ptr->uri_query_ptr     =   handle->sn_nsdl_alloc(source_msg_ptr->options_list_ptr->uri_query_len);
+    bool optional_params = false;
+    if (query_count && uri_queries) {
+        optional_params = true;
+        for (uint32_t i = 0; i < query_count; i++) {
+            query_len += strlen(uri_queries[i]);
+        }
+        query_len += query_count; // Reserve space for '&'
+    }
+
+    source_msg_ptr->options_list_ptr->uri_query_len = query_len;
+    source_msg_ptr->options_list_ptr->uri_query_ptr = handle->sn_nsdl_alloc(query_len);
 
     if (source_msg_ptr->options_list_ptr->uri_query_ptr == NULL) {
         return SN_NSDL_FAILURE;
@@ -1273,6 +1319,17 @@ static int8_t sn_nsdl_fill_uri_query_options(struct nsdl_s *handle, sn_nsdl_ep_p
             if ((parameter_ptr->binding_and_mode & 0x02) && !(parameter_ptr->binding_and_mode & 0x01)) {
                 *temp_ptr++ = 'Q';
             }
+        }
+    }
+
+    // Add optional parameters, parsed from the server URL.
+    if (optional_params) {
+        for (uint32_t i = 0; i < query_count; i++) {
+            tr_debug("Query: %s", uri_queries[i]);
+            memcpy(temp_ptr, "&", 1);
+            temp_ptr++;
+            memcpy(temp_ptr, uri_queries[i], strlen(uri_queries[i]));
+            temp_ptr += strlen(uri_queries[i]);
         }
     }
 
