@@ -18,7 +18,8 @@ INCLUDE_DIRS =\
   ../../../../yotta_modules/mbed-coap/mbed-coap\
   ../../../../yotta_modules/mbed-coap/source/include\
   ../../../../../libService/libService\
-  ../../../../source/include\
+  ../../../../source/libCoap/src/include\
+  ../../../../source/libNsdl/src/include\
   /usr/include\
   $(CPPUTEST_HOME)/include\
 

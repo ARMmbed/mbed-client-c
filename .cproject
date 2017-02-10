@@ -15,7 +15,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="NSDLLibrary" buildProperties="" description="" errorParsers="org.eclipse.cdt.core.VCErrorParser;org.eclipse.cdt.core.GmakeErrorParser;org.eclipse.cdt.core.CWDLocator;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.ui.ArmCC Error Parser" id="0.2056004298.1497082229" name="ArmCC Cortex-M3" parent="org.eclipse.cdt.build.core.prefbase.cfg">
+				<configuration artifactName="CoapCLibrary" buildProperties="" description="" errorParsers="org.eclipse.cdt.core.VCErrorParser;org.eclipse.cdt.core.GmakeErrorParser;org.eclipse.cdt.core.CWDLocator;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.ui.ArmCC Error Parser" id="0.2056004298.1497082229" name="ArmCC Cortex-M3" parent="org.eclipse.cdt.build.core.prefbase.cfg">
 					<folderInfo id="0.2056004298.1497082229." name="/" resourcePath="">
 						<toolChain errorParsers="" id="org.eclipse.cdt.build.core.prefbase.toolchain.770666332" name="No ToolChain" resourceTypeBasedDiscovery="false" superClass="org.eclipse.cdt.build.core.prefbase.toolchain">
 							<targetPlatform id="org.eclipse.cdt.build.core.prefbase.toolchain.770666332.427251279" name=""/>
@@ -31,7 +31,7 @@
 								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.1161720801" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${ARMCC_INCLUDE}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libService/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/NSDLLibrary/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CoapCLibrary/include}&quot;"/>
 								</option>
 								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.1168307953" languageId="org.eclipse.cdt.core.gcc" languageName="GNU C" sourceContentType="org.eclipse.cdt.core.cSource,org.eclipse.cdt.core.cHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
 							</tool>
@@ -71,7 +71,7 @@
 								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.365347370" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${ARMCC_INCLUDE}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libService/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/NSDLLibrary/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CoapCLibrary/include}&quot;"/>
 								</option>
 								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.2141715352" languageId="org.eclipse.cdt.core.gcc" languageName="GNU C" sourceContentType="org.eclipse.cdt.core.cSource,org.eclipse.cdt.core.cHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
 							</tool>
@@ -113,7 +113,7 @@
 							<tool id="org.eclipse.cdt.build.core.settings.holder.691442476" name="GNU C" superClass="org.eclipse.cdt.build.core.settings.holder">
 								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.818761128" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libService/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/NSDLLibrary/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CoapCLibrary/include}&quot;"/>
 								</option>
 								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.1080315198" languageId="org.eclipse.cdt.core.gcc" languageName="GNU C" sourceContentType="org.eclipse.cdt.core.cSource,org.eclipse.cdt.core.cHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
 							</tool>
@@ -155,7 +155,7 @@
 							<tool id="org.eclipse.cdt.build.core.settings.holder.447951028" name="GNU C" superClass="org.eclipse.cdt.build.core.settings.holder">
 								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.324700063" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libService/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/NSDLLibrary/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CoapCLibrary/include}&quot;"/>
 								</option>
 								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.2054819611" languageId="org.eclipse.cdt.core.gcc" languageName="GNU C" sourceContentType="org.eclipse.cdt.core.cSource,org.eclipse.cdt.core.cHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
 							</tool>
@@ -197,7 +197,7 @@
 							<tool id="org.eclipse.cdt.build.core.settings.holder.1697547013" name="GNU C" superClass="org.eclipse.cdt.build.core.settings.holder">
 								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.1108488475" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libService/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/NSDLLibrary/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CoapCLibrary/include}&quot;"/>
 								</option>
 								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.1994000226" languageId="org.eclipse.cdt.core.gcc" languageName="GNU C" sourceContentType="org.eclipse.cdt.core.cSource,org.eclipse.cdt.core.cHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
 							</tool>
