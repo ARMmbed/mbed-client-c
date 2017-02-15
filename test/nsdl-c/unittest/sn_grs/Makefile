@@ -4,7 +4,7 @@ COMPONENT_NAME = sn_grs_unit
 
 #This must be changed manually
 SRC_FILES = \
-        ../../../../source/libNsdl/src/sn_grs.c
+        ../../../../source/sn_grs.c
 
 TEST_SRC_FILES = \
 	main.cpp \
