@@ -27,6 +27,7 @@ SERVLIB_DIR := ../libService
 override CFLAGS += -I$(SERVLIB_DIR)/libService
 override CFLAGS += -Insdl-c/
 override CFLAGS += -I../mbed-coap
+override CFLAGS += -I../mbed-coap/mbed-coap
 override CFLAGS += -I../mbed-coap/source/include/
 
 include ../libService/toolchain_rules.mk
