@@ -697,6 +697,16 @@ extern int8_t sn_nsdl_set_block_size(struct nsdl_s *handle, uint16_t block_size)
  */
 extern int8_t sn_nsdl_set_duplicate_buffer_size(struct nsdl_s *handle, uint8_t message_count);
 
+/**
+ * \fn int8_t sn_nsdl_clear_coap_resending_queue(struct nsdl_s *handle)
+ *
+ * \brief Clean confirmable message list.
+ *
+ * \param *handle Pointer to library handle
+ * \return  0 = success, -1 = failure
+ */
+extern int8_t sn_nsdl_clear_coap_resending_queue(struct nsdl_s *handle);
+
 #ifdef __cplusplus
 }
 #endif
