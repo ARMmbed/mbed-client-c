@@ -2485,3 +2485,12 @@ extern int8_t sn_nsdl_set_duplicate_buffer_size(struct nsdl_s *handle, uint8_t m
     return sn_coap_protocol_set_duplicate_buffer_size(handle->grs->coap, message_count);
 }
 
+int8_t sn_nsdl_clear_coap_resending_queue(struct nsdl_s *handle)
+{
+    if (handle == NULL) {
+        return SN_NSDL_FAILURE;
+    }
+    sn_coap_protocol_clear_retransmission_buffer(handle->grs->coap);
+    return 0;
+}
+
