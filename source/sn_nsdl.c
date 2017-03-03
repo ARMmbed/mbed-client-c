@@ -933,7 +933,7 @@ int8_t sn_nsdl_build_registration_body(struct nsdl_s *handle, sn_coap_hdr_s *mes
                 temp_ptr += resource_type_len;
                 *temp_ptr++ = '"';
             }
-
+#ifndef DISABLE_INTERFACE_DESCRIPTION
             size_t interface_description_len = 0;
             if (resource_temp_ptr->static_resource_parameters->interface_description_ptr) {
                 interface_description_len = strlen(resource_temp_ptr->static_resource_parameters->interface_description_ptr);
@@ -950,7 +950,7 @@ int8_t sn_nsdl_build_registration_body(struct nsdl_s *handle, sn_coap_hdr_s *mes
                 temp_ptr += interface_description_len;
                 *temp_ptr++ = '"';
             }
-
+#endif
             if (resource_temp_ptr->coap_content_type != 0) {
                 *temp_ptr++ = ';';
                 memcpy(temp_ptr, coap_con_type_parameter, COAP_CON_PARAMETER_LEN);
@@ -1048,6 +1048,7 @@ static uint16_t sn_nsdl_calculate_registration_body_size(struct nsdl_s *handle, 
             }
 
             /* Interface description parameter */
+#ifndef DISABLE_INTERFACE_DESCRIPTION
             size_t interface_description_len = 0;
             if (resource_temp_ptr->static_resource_parameters->interface_description_ptr) {
                 interface_description_len = strlen(resource_temp_ptr->static_resource_parameters->interface_description_ptr);
@@ -1063,7 +1064,7 @@ static uint16_t sn_nsdl_calculate_registration_body_size(struct nsdl_s *handle, 
                     break;
                 }
             }
-
+#endif
             if (resource_temp_ptr->coap_content_type != 0) {
                 /* ;if="content" */
                 uint8_t len = sn_nsdl_itoa_len(resource_temp_ptr->coap_content_type);
