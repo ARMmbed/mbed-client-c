@@ -134,10 +134,6 @@ extern int8_t                                   sn_grs_put_resource(struct grs_s
 extern int8_t                                   sn_grs_pop_resource(struct grs_s *handle, sn_nsdl_dynamic_resource_parameters_s *res);
 extern int8_t                                   sn_grs_delete_resource(struct grs_s *handle, const char *path);
 extern void                                     sn_grs_mark_resources_as_registered(struct nsdl_s *handle);
-#ifndef MEMORY_OPTIMIZED_API
-extern int8_t                                   sn_grs_create_resource(struct grs_s *handle, sn_nsdl_dynamic_resource_parameters_s *res);
-extern int8_t                                   sn_grs_update_resource(struct grs_s *handle, sn_nsdl_dynamic_resource_parameters_s *res);
-#endif
 
 #ifdef __cplusplus
 }

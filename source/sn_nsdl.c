@@ -1585,28 +1585,6 @@ void sn_nsdl_free_resource_list(struct nsdl_s *handle, sn_grs_resource_list_s *l
     sn_grs_free_resource_list(handle->grs, list);
 }
 
-#ifndef MEMORY_OPTIMIZED_API
-extern int8_t sn_nsdl_update_resource(struct nsdl_s *handle, sn_nsdl_dynamic_resource_parameters_s *res)
-{
-    /* Check parameters */
-    if (handle == NULL) {
-        return SN_NSDL_FAILURE;
-    }
-
-    return sn_grs_update_resource(handle->grs, res);
-}
-
-extern int8_t sn_nsdl_create_resource(struct nsdl_s *handle, sn_nsdl_dynamic_resource_parameters_s *res)
-{
-    /* Check parameters */
-    if (handle == NULL) {
-        return SN_NSDL_FAILURE;
-    }
-
-    return sn_grs_create_resource(handle->grs, res);
-}
-#endif
-
 extern int8_t sn_nsdl_send_coap_message(struct nsdl_s *handle, sn_nsdl_addr_s *address_ptr, sn_coap_hdr_s *coap_hdr_ptr)
 {
     /* Check parameters */
