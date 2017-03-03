@@ -26,6 +26,7 @@
 #define SN_NSDL_LIB_H_
 
 #include "ns_list.h"
+#include "sn_client_config.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -33,6 +34,12 @@ extern "C" {
 
 #define SN_NSDL_ENDPOINT_NOT_REGISTERED  0
 #define SN_NSDL_ENDPOINT_IS_REGISTERED   1
+
+#ifdef YOTTA_CFG_DISABLE_INTERFACE_DESCRIPTION
+#define DISABLE_INTERFACE_DESCRIPTION YOTTA_CFG_DISABLE_INTERFACE_DESCRIPTION 
+#elif defined MBED_CONF_MBED_CLIENT_DISABLE_INTERFACE_DESCRIPTION
+#define DISABLE_INTERFACE_DESCRIPTION MBED_CONF_MBED_CLIENT_DISABLE_INTERFACE_DESCRIPTION 
+#endif
 
 
 /* Handle structure */
@@ -138,7 +145,9 @@ typedef enum sn_nsdl_resource_mode_ {
  */
 typedef struct sn_nsdl_static_resource_parameters_ {
     char        *resource_type_ptr;         /**< Type of the resource */
+#ifndef DISABLE_INTERFACE_DESCRIPTION	
     char        *interface_description_ptr; /**< Interface description */
+#endif	
     char        *path;                      /**< Resource path */
     uint8_t     *resource;                  /**< NULL if dynamic resource */
     uint16_t    resourcelen;                /**< 0 if dynamic resource, resource information in static resource */

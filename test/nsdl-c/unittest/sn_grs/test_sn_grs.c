@@ -454,10 +454,11 @@ bool test_sn_grs_put_resource()
     res->static_resource_parameters->resource_type_ptr = (uint8_t*)malloc(2);
     res->static_resource_parameters->resource_type_ptr[0] = 'a';
     res->static_resource_parameters->resource_type_ptr[1] = '\0';
+#ifndef DISABLE_INTERFACE_DESCRIPTION
     res->static_resource_parameters->interface_description_ptr = (uint8_t*)malloc(2);
     res->static_resource_parameters->interface_description_ptr[0] = 'a';
     res->static_resource_parameters->interface_description_ptr[1] = '\0';
-
+#endif
     if( SN_NSDL_SUCCESS != sn_grs_put_resource(handle, res) ){
         return false;
     }
