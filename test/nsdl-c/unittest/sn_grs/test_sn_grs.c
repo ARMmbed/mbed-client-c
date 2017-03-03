@@ -528,10 +528,10 @@ bool test_sn_grs_create_resource()
 
     res->static_resource_parameters->resource_type_ptr = malloc(2);
     memset(res->static_resource_parameters->resource_type_ptr, 0, 2);
-
+#ifdef MBED_CLIENT_SUPPORT_INTERFACE_DESCRIPTION_PTR
     res->static_resource_parameters->interface_description_ptr = (uint8_t*)malloc(2);
     memset(res->static_resource_parameters->interface_description_ptr, 0, 2);
-
+#endif
     if( SN_GRS_LIST_ADDING_FAILURE != sn_grs_create_resource(handle, res) ){
         return false;
     }
@@ -608,10 +608,11 @@ bool test_sn_grs_put_resource()
     res->static_resource_parameters->resource_type_ptr = (uint8_t*)malloc(2);
     res->static_resource_parameters->resource_type_ptr[0] = 'a';
     res->static_resource_parameters->resource_type_ptr[1] = '\0';
+#ifdef MBED_CLIENT_SUPPORT_INTERFACE_DESCRIPTION_PTR
     res->static_resource_parameters->interface_description_ptr = (uint8_t*)malloc(2);
     res->static_resource_parameters->interface_description_ptr[0] = 'a';
     res->static_resource_parameters->interface_description_ptr[1] = '\0';
-
+#endif
     if( SN_NSDL_SUCCESS != sn_grs_put_resource(handle, res) ){
         return false;
     }

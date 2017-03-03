@@ -139,7 +139,9 @@ typedef enum sn_nsdl_resource_mode_ {
  */
 typedef struct sn_nsdl_static_resource_parameters_ {
     char        *resource_type_ptr;         //
+#ifdef MBED_CLIENT_SUPPORT_INTERFACE_DESCRIPTION_PTR
     char        *interface_description_ptr; //
+#endif
     uint8_t     *path;                      // convert to char*?
     uint8_t     *resource;                  /**< NULL if dynamic resource */
     int16_t     pathlen;                    /**< Address */ // Check type
