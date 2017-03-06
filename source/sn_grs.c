@@ -779,11 +779,12 @@ static int8_t sn_grs_resource_info_free(struct grs_s *handle, sn_nsdl_dynamic_re
                 resource_ptr->static_resource_parameters->interface_description_ptr = 0;
             }
 #endif
+#ifndef DISABLE_RESOURCE_TYPE
             if (resource_ptr->static_resource_parameters->resource_type_ptr) {
                 handle->sn_grs_free(resource_ptr->static_resource_parameters->resource_type_ptr);
                 resource_ptr->static_resource_parameters->resource_type_ptr = 0;
             }
-
+#endif
             if (resource_ptr->static_resource_parameters->path) {
                 handle->sn_grs_free(resource_ptr->static_resource_parameters->path);
                 resource_ptr->static_resource_parameters->path = 0;

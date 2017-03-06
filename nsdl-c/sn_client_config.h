@@ -30,6 +30,13 @@
  * \brief For Disabling Resource type
  *
  */
+#undef DISABLE_RESOURCE_TYPE
+
+/**
+ * \def DISABLE_INTERFACE_DESCRIPTION
+ * \brief For Disabling Resource type
+ *
+ */
 #undef DISABLE_INTERFACE_DESCRIPTION
 
 #ifdef MBED_CLIENT_USER_CONFIG_FILE
