@@ -270,9 +270,11 @@ bool test_sn_nsdl_register_endpoint()
     sn_grs_stub.expectedInfo = (sn_nsdl_dynamic_resource_parameters_s*)malloc(sizeof(sn_nsdl_dynamic_resource_parameters_s));
     memset( sn_grs_stub.expectedInfo, 0, sizeof(sn_nsdl_dynamic_resource_parameters_s));
     sn_grs_stub.expectedInfo->static_resource_parameters = (sn_nsdl_static_resource_parameters_s*)malloc(sizeof(sn_nsdl_static_resource_parameters_s));
+#ifndef DISABLE_RESOURCE_TYPE
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr = (uint8_t*)malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr[0] = 'a';
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr[1] = '\0';
+#endif
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr = (uint8_t*)malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr[0] = 'a';
@@ -297,7 +299,9 @@ bool test_sn_nsdl_register_endpoint()
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
 #endif
+#ifndef DISABLE_RESOURCE_TYPE
     free(sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr);
+#endif
     free(sn_grs_stub.expectedInfo->static_resource_parameters);
     free(sn_grs_stub.expectedInfo);
     sn_grs_stub.expectedInfo = NULL;
@@ -344,9 +348,11 @@ bool test_sn_nsdl_register_endpoint()
     sn_grs_stub.expectedInfo = (sn_nsdl_dynamic_resource_parameters_s*)malloc(sizeof(sn_nsdl_dynamic_resource_parameters_s));
     memset( sn_grs_stub.expectedInfo, 0, sizeof(sn_nsdl_dynamic_resource_parameters_s));
     sn_grs_stub.expectedInfo->static_resource_parameters = (sn_nsdl_static_resource_parameters_s*)malloc(sizeof(sn_nsdl_static_resource_parameters_s));
+#ifndef DISABLE_RESOURCE_TYPE
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr = (uint8_t*)malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr[0] = 'a';
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr[1] = '\0';
+#endif
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr = (uint8_t*)malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr[0] = 'a';
@@ -375,7 +381,9 @@ bool test_sn_nsdl_register_endpoint()
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
 #endif
+#ifndef DISABLE_RESOURCE_TYPE
     free(sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr);
+#endif
     free(sn_grs_stub.expectedInfo->static_resource_parameters);
     free(sn_grs_stub.expectedInfo);
 
@@ -391,9 +399,11 @@ bool test_sn_nsdl_register_endpoint()
     sn_grs_stub.expectedInfo = (sn_nsdl_dynamic_resource_parameters_s*)malloc(sizeof(sn_nsdl_dynamic_resource_parameters_s));
     memset( sn_grs_stub.expectedInfo, 0, sizeof(sn_nsdl_dynamic_resource_parameters_s));
     sn_grs_stub.expectedInfo->static_resource_parameters = (sn_nsdl_static_resource_parameters_s*)malloc(sizeof(sn_nsdl_static_resource_parameters_s));
+#ifndef DISABLE_RESOURCE_TYPE
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr = (uint8_t*)malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr[0] = 'a';
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr[1] = '\0';
+#endif
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr = (uint8_t*)malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr[0] = 'a';
@@ -423,7 +433,9 @@ bool test_sn_nsdl_register_endpoint()
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
 #endif
+#ifndef DISABLE_RESOURCE_TYPE
     free(sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr);
+#endif
     free(sn_grs_stub.expectedInfo->static_resource_parameters);
     free(sn_grs_stub.expectedInfo);
 
@@ -439,11 +451,13 @@ bool test_sn_nsdl_register_endpoint()
     sn_grs_stub.expectedInfo = (sn_nsdl_dynamic_resource_parameters_s*)malloc(sizeof(sn_nsdl_dynamic_resource_parameters_s));
     memset( sn_grs_stub.expectedInfo, 0, sizeof(sn_nsdl_dynamic_resource_parameters_s));
     sn_grs_stub.expectedInfo->static_resource_parameters = (sn_nsdl_static_resource_parameters_s*)malloc(sizeof(sn_nsdl_static_resource_parameters_s));
+#ifndef DISABLE_RESOURCE_TYPE
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr = (uint8_t*)malloc(UINT16_MAX);
     for(int i = 0; i < UINT16_MAX-1; i++) {
         sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr[i] = 'a';
     }
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr[UINT16_MAX-1] = '\0';
+#endif
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr = (uint8_t*)malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr[0] = 'a';
@@ -471,7 +485,9 @@ bool test_sn_nsdl_register_endpoint()
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
 #endif
+#ifndef DISABLE_RESOURCE_TYPE
     free(sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr);
+#endif
     free(sn_grs_stub.expectedInfo->static_resource_parameters);
     free(sn_grs_stub.expectedInfo);
 
@@ -486,9 +502,11 @@ bool test_sn_nsdl_register_endpoint()
     sn_grs_stub.expectedInfo = (sn_nsdl_dynamic_resource_parameters_s*)malloc(sizeof(sn_nsdl_dynamic_resource_parameters_s));
     memset( sn_grs_stub.expectedInfo, 0, sizeof(sn_nsdl_dynamic_resource_parameters_s));
     sn_grs_stub.expectedInfo->static_resource_parameters = (sn_nsdl_static_resource_parameters_s*)malloc(sizeof(sn_nsdl_static_resource_parameters_s));
+#ifndef DISABLE_RESOURCE_TYPE
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr = (uint8_t*)malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr[0] = 'a';
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr[1] = '\0';
+#endif
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr = (uint8_t*)malloc(UINT16_MAX);
     for(int i = 0; i < UINT16_MAX-1; i++) {
@@ -517,7 +535,9 @@ bool test_sn_nsdl_register_endpoint()
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
 #endif
+#ifndef DISABLE_RESOURCE_TYPE
     free(sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr);
+#endif
     free(sn_grs_stub.expectedInfo->static_resource_parameters);
     free(sn_grs_stub.expectedInfo);
 
@@ -532,9 +552,11 @@ bool test_sn_nsdl_register_endpoint()
     sn_grs_stub.expectedInfo = (sn_nsdl_dynamic_resource_parameters_s*)malloc(sizeof(sn_nsdl_dynamic_resource_parameters_s));
     memset( sn_grs_stub.expectedInfo, 0, sizeof(sn_nsdl_dynamic_resource_parameters_s));
     sn_grs_stub.expectedInfo->static_resource_parameters = (sn_nsdl_static_resource_parameters_s*)malloc(sizeof(sn_nsdl_static_resource_parameters_s));
+#ifndef DISABLE_RESOURCE_TYPE
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr = (uint8_t*)malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr[0] = 'a';
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr[1] = '\0';
+#endif
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr = (uint8_t*)malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr[0] = 'a';
@@ -561,7 +583,9 @@ bool test_sn_nsdl_register_endpoint()
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
 #endif
+#ifndef DISABLE_RESOURCE_TYPE
     free(sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr);
+#endif
     free(sn_grs_stub.expectedInfo->static_resource_parameters);
     free(sn_grs_stub.expectedInfo);
 
@@ -576,9 +600,11 @@ bool test_sn_nsdl_register_endpoint()
     sn_grs_stub.expectedInfo = (sn_nsdl_dynamic_resource_parameters_s*)malloc(sizeof(sn_nsdl_dynamic_resource_parameters_s));
     memset( sn_grs_stub.expectedInfo, 0, sizeof(sn_nsdl_dynamic_resource_parameters_s));
     sn_grs_stub.expectedInfo->static_resource_parameters = (sn_nsdl_static_resource_parameters_s*)malloc(sizeof(sn_nsdl_static_resource_parameters_s));
+#ifndef DISABLE_RESOURCE_TYPE
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr = (uint8_t*)malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr[0] = 'a';
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr[1] = '\0';
+#endif
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr = (uint8_t*)malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr[0] = 'a';
@@ -607,7 +633,9 @@ bool test_sn_nsdl_register_endpoint()
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
 #endif
+#ifndef DISABLE_RESOURCE_TYPE
     free(sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr);
+#endif
     free(sn_grs_stub.expectedInfo->static_resource_parameters);
     free(sn_grs_stub.expectedInfo);
 
@@ -622,10 +650,12 @@ bool test_sn_nsdl_register_endpoint()
     sn_grs_stub.expectedInfo = (sn_nsdl_dynamic_resource_parameters_s*)malloc(sizeof(sn_nsdl_dynamic_resource_parameters_s));
     memset( sn_grs_stub.expectedInfo, 0, sizeof(sn_nsdl_dynamic_resource_parameters_s));
     sn_grs_stub.expectedInfo->static_resource_parameters = (sn_nsdl_static_resource_parameters_s*)malloc(sizeof(sn_nsdl_static_resource_parameters_s));
+#ifndef DISABLE_RESOURCE_TYPE
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr = (uint8_t*)malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr[0] = 'a';
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr[1] = '\0';
-#ifndef DISABLE_INTERFACE_DESCRIPTION    
+#endif
+#ifndef DISABLE_INTERFACE_DESCRIPTION
     sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr = (uint8_t*)malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr[0] = 'a';
     sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr[1] = '\0';
@@ -653,7 +683,9 @@ bool test_sn_nsdl_register_endpoint()
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
 #endif
+#ifndef DISABLE_RESOURCE_TYPE
     free(sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr);
+#endif
     free(sn_grs_stub.expectedInfo->static_resource_parameters);
     free(sn_grs_stub.expectedInfo);
 
@@ -668,9 +700,11 @@ bool test_sn_nsdl_register_endpoint()
     sn_grs_stub.expectedInfo = (sn_nsdl_dynamic_resource_parameters_s*)malloc(sizeof(sn_nsdl_dynamic_resource_parameters_s));
     memset( sn_grs_stub.expectedInfo, 0, sizeof(sn_nsdl_dynamic_resource_parameters_s));
     sn_grs_stub.expectedInfo->static_resource_parameters = (sn_nsdl_static_resource_parameters_s*)malloc(sizeof(sn_nsdl_static_resource_parameters_s));
+#ifndef DISABLE_RESOURCE_TYPE
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr = (uint8_t*)malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr[0] = 'a';
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr[1] = '\0';
+#endif
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr = (uint8_t*)malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr[0] = 'a';
@@ -699,7 +733,9 @@ bool test_sn_nsdl_register_endpoint()
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
 #endif
+#ifndef DISABLE_RESOURCE_TYPE
     free(sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr);
+#endif
     free(sn_grs_stub.expectedInfo->static_resource_parameters);
     free(sn_grs_stub.expectedInfo);
 
@@ -713,9 +749,11 @@ bool test_sn_nsdl_register_endpoint()
     sn_grs_stub.expectedInfo = (sn_nsdl_dynamic_resource_parameters_s*)malloc(sizeof(sn_nsdl_dynamic_resource_parameters_s));
     memset( sn_grs_stub.expectedInfo, 0, sizeof(sn_nsdl_dynamic_resource_parameters_s));
     sn_grs_stub.expectedInfo->static_resource_parameters = (sn_nsdl_static_resource_parameters_s*)malloc(sizeof(sn_nsdl_static_resource_parameters_s));
+#ifndef DISABLE_RESOURCE_TYPE
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr = (uint8_t*)malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr[0] = 'a';
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr[1] = '\0';
+#endif
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr = (uint8_t*)malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr[0] = 'a';
@@ -742,7 +780,9 @@ bool test_sn_nsdl_register_endpoint()
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
 #endif
+#ifndef DISABLE_RESOURCE_TYPE
     free(sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr);
+#endif
     free(sn_grs_stub.expectedInfo->static_resource_parameters);
     free(sn_grs_stub.expectedInfo);
 
@@ -898,9 +938,11 @@ bool test_sn_nsdl_update_registration()
     memset( sn_grs_stub.expectedInfo, 0, sizeof(sn_nsdl_dynamic_resource_parameters_s));
     sn_grs_stub.expectedInfo->static_resource_parameters = (sn_nsdl_static_resource_parameters_s*)malloc(sizeof(sn_nsdl_static_resource_parameters_s));
     sn_grs_stub.expectedInfo->registered = SN_NDSL_RESOURCE_REGISTERED;
+#ifndef DISABLE_RESOURCE_TYPE
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr = (uint8_t*)malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr[0] = 'a';
     sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr[1] = '\0';
+#endif
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr = (uint8_t*)malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr[0] = 'a';
@@ -926,7 +968,9 @@ bool test_sn_nsdl_update_registration()
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
 #endif
+#ifndef DISABLE_RESOURCE_TYPE 
     free(sn_grs_stub.expectedInfo->static_resource_parameters->resource_type_ptr);
+#endif
     free(sn_grs_stub.expectedInfo->static_resource_parameters);
     free(sn_grs_stub.expectedInfo);
     sn_grs_stub.expectedInfo = NULL;

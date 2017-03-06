@@ -918,6 +918,7 @@ int8_t sn_nsdl_build_registration_body(struct nsdl_s *handle, sn_coap_hdr_s *mes
             *temp_ptr++ = '>';
 
             /* Resource attributes */
+#ifndef DISABLE_RESOURCE_TYPE
             size_t resource_type_len = 0;
             if (resource_temp_ptr->static_resource_parameters->resource_type_ptr) {
                 resource_type_len = strlen(resource_temp_ptr->static_resource_parameters->resource_type_ptr);
@@ -933,6 +934,7 @@ int8_t sn_nsdl_build_registration_body(struct nsdl_s *handle, sn_coap_hdr_s *mes
                 temp_ptr += resource_type_len;
                 *temp_ptr++ = '"';
             }
+#endif            
 #ifndef DISABLE_INTERFACE_DESCRIPTION
             size_t interface_description_len = 0;
             if (resource_temp_ptr->static_resource_parameters->interface_description_ptr) {
@@ -1028,7 +1030,7 @@ static uint16_t sn_nsdl_calculate_registration_body_size(struct nsdl_s *handle, 
             }
 
             /* Count lengths of the attributes */
-
+#ifndef DISABLE_RESOURCE_TYPE
             /* Resource type parameter */
             size_t resource_type_len = 0;
             if (resource_temp_ptr->static_resource_parameters->resource_type_ptr) {
@@ -1046,9 +1048,10 @@ static uint16_t sn_nsdl_calculate_registration_body_size(struct nsdl_s *handle, 
                     break;
                 }
             }
+#endif
 
-            /* Interface description parameter */
 #ifndef DISABLE_INTERFACE_DESCRIPTION
+            /* Interface description parameter */
             size_t interface_description_len = 0;
             if (resource_temp_ptr->static_resource_parameters->interface_description_ptr) {
                 interface_description_len = strlen(resource_temp_ptr->static_resource_parameters->interface_description_ptr);

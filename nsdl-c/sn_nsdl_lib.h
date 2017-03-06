@@ -41,6 +41,11 @@ extern "C" {
 #define DISABLE_INTERFACE_DESCRIPTION MBED_CONF_MBED_CLIENT_DISABLE_INTERFACE_DESCRIPTION 
 #endif
 
+#ifdef YOTTA_CFG_DISABLE_RESOURCE_TYPE
+#define DISABLE_RESOURCE_TYPE YOTTA_CFG_DISABLE_RESOURCE_TYPE
+#elif defined MBED_CONF_MBED_CLIENT_DISABLE_RESOURCE_TYPE
+#define DISABLE_RESOURCE_TYPE MBED_CONF_MBED_CLIENT_DISABLE_RESOURCE_TYPE
+#endif
 
 /* Handle structure */
 struct nsdl_s;
@@ -144,7 +149,9 @@ typedef enum sn_nsdl_resource_mode_ {
  * \brief Defines static parameters for the resource.
  */
 typedef struct sn_nsdl_static_resource_parameters_ {
+#ifndef DISABLE_RESOURCE_TYPE
     char        *resource_type_ptr;         /**< Type of the resource */
+#endif
 #ifndef DISABLE_INTERFACE_DESCRIPTION	
     char        *interface_description_ptr; /**< Interface description */
 #endif	
