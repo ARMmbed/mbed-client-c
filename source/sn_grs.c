@@ -509,8 +509,8 @@ extern int8_t sn_grs_process_coap(struct nsdl_s *nsdl_handle, sn_coap_hdr_s *coa
             }
 
             /* Add payload */
-            if (resource_temp_ptr->static_resource_parameters->resourcelen != 0) {
-                response_message_hdr_ptr->payload_len = resource_temp_ptr->static_resource_parameters->resourcelen;
+            if (resource_temp_ptr->resourcelen != 0) {
+                response_message_hdr_ptr->payload_len = resource_temp_ptr->resourcelen;
                 response_message_hdr_ptr->payload_ptr = handle->sn_grs_alloc(response_message_hdr_ptr->payload_len);
 
                 if (!response_message_hdr_ptr->payload_ptr) {
@@ -526,7 +526,7 @@ extern int8_t sn_grs_process_coap(struct nsdl_s *nsdl_handle, sn_coap_hdr_s *coa
                 }
 
                 memcpy(response_message_hdr_ptr->payload_ptr,
-                       resource_temp_ptr->static_resource_parameters->resource,
+                       resource_temp_ptr->resource,
                        response_message_hdr_ptr->payload_len);
             }
             // Add max-age attribute for static resources.
@@ -790,9 +790,9 @@ static int8_t sn_grs_resource_info_free(struct grs_s *handle, sn_nsdl_dynamic_re
                 resource_ptr->static_resource_parameters->path = 0;
             }
 
-            if (resource_ptr->static_resource_parameters->resource) {
-                handle->sn_grs_free(resource_ptr->static_resource_parameters->resource);
-                resource_ptr->static_resource_parameters->resource = 0;
+            if (resource_ptr->resource) {
+                handle->sn_grs_free(resource_ptr->resource);
+                resource_ptr->resource = 0;
             }
 
             handle->sn_grs_free(resource_ptr->static_resource_parameters);
