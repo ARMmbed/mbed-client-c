@@ -156,8 +156,8 @@ typedef struct sn_nsdl_static_resource_parameters_ {
     char        *interface_description_ptr; /**< Interface description */
 #endif	
     char        *path;                      /**< Resource path */
-    uint8_t     *resource;                  /**< NULL if dynamic resource */
-    uint16_t    resourcelen;                /**< 0 if dynamic resource, resource information in static resource */
+//    uint8_t     *resource;                  /**< NULL if dynamic resource */
+//    uint16_t    resourcelen;                /**< 0 if dynamic resource, resource information in static resource */
     bool        external_memory_block:1;    /**< 0 means block messages are handled inside this library,
                                                  otherwise block messages are passed to application */
     unsigned    mode:2;                     /**< STATIC etc.. */
@@ -177,7 +177,9 @@ typedef struct sn_nsdl_resource_parameters_ {
 #else
     sn_nsdl_static_resource_parameters_s        *static_resource_parameters;
 #endif
+    uint8_t                                     *resource;          /**< NULL if dynamic resource */
     ns_list_link_t                              link;
+    uint16_t                                    resourcelen;        /**< 0 if dynamic resource, resource information in static resource */
     uint16_t                                    coap_content_type;  /**< CoAP content type */
     unsigned                                    access:4;           /**< Allowed operation mode, GET, PUT, etc,
                                                                          TODO! This should be in static struct but current
