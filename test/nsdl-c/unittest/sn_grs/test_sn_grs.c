@@ -447,10 +447,10 @@ bool test_sn_grs_put_resource()
     res->static_resource_parameters->path = (uint8_t*)malloc(2);
     res->static_resource_parameters->path[0] = 'a';
     res->static_resource_parameters->path[1] = '\0';
-    res->static_resource_parameters->resource = (uint8_t*)malloc(2);
-    res->static_resource_parameters->resourcelen = 1;
-    res->static_resource_parameters->resource[0] = 'a';
-    res->static_resource_parameters->resource[1] = '\0';
+//    res->static_resource_parameters->resource = (uint8_t*)malloc(2);
+//    res->static_resource_parameters->resourcelen = 1;
+//    res->static_resource_parameters->resource[0] = 'a';
+//    res->static_resource_parameters->resource[1] = '\0';
 #ifndef DISABLE_RESOURCE_TYPE
     res->static_resource_parameters->resource_type_ptr = (uint8_t*)malloc(2);
     res->static_resource_parameters->resource_type_ptr[0] = 'a';
@@ -946,9 +946,6 @@ bool test_sn_grs_process_coap()
     if( SN_NSDL_SUCCESS != sn_grs_process_coap(handle, hdr, addr) ){
         return false;
     }
-
-    res->static_resource_parameters->resource = (uint8_t*)malloc(2);
-    res->static_resource_parameters->resourcelen = 2;
 
     hdr = (sn_coap_hdr_s*)malloc(sizeof(sn_coap_hdr_s));
     memset(hdr, 0, sizeof(sn_coap_hdr_s));

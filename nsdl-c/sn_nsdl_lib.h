@@ -156,8 +156,6 @@ typedef struct sn_nsdl_static_resource_parameters_ {
     char        *interface_description_ptr; /**< Interface description */
 #endif	
     char        *path;                      /**< Resource path */
-//    uint8_t     *resource;                  /**< NULL if dynamic resource */
-//    uint16_t    resourcelen;                /**< 0 if dynamic resource, resource information in static resource */
     bool        external_memory_block:1;    /**< 0 means block messages are handled inside this library,
                                                  otherwise block messages are passed to application */
     unsigned    mode:2;                     /**< STATIC etc.. */
@@ -376,44 +374,6 @@ extern int8_t sn_nsdl_process_coap(struct nsdl_s *handle, uint8_t *packet, uint1
  * \return  -1  Failure
  */
 extern int8_t sn_nsdl_exec(struct nsdl_s *handle, uint32_t time);
-
-#ifndef MEMORY_OPTIMIZED_API
-/**
- * \fn  extern int8_t sn_nsdl_create_resource(struct nsdl_s *handle, const sn_nsdl_resource_parameters_s *res);
- *
- * \brief Resource creating function.
- *
- * Used to create a static or dynamic CoAP resource.
- *
- * \param   *res    Pointer to a structure of type sn_nsdl_resource_info_t that contains the information
- *     about the resource.
- *
- * \return  0   Success
- * \return  -1  Failure
- * \return  -2  Resource already exists
- * \return  -3  Invalid path
- * \return  -4  List adding failure
- */
-extern int8_t sn_nsdl_create_resource(struct nsdl_s *handle, sn_nsdl_dynamic_resource_parameters_s *res);
-
-/**
- * \fn extern int8_t sn_nsdl_update_resource(struct nsdl_s *handle, sn_nsdl_resource_parameters_s *res)
- *
- * \brief Resource updating function.
- *
- * Used to update the direct value of a static resource, the callback function pointer of a dynamic resource
- * and access rights of the recource.
- *
- * \param   *handle Pointer to nsdl-library handle
- * \param   *res    Pointer to a structure of type sn_nsdl_resource_info_t that contains the information
- *     about the resource. Only the pathlen and path elements are evaluated along with
- *     either resourcelen and resource or the function pointer.
- *
- * \return  0   Success
- * \return  -1  Failure
- */
-extern int8_t sn_nsdl_update_resource(struct nsdl_s *handle, sn_nsdl_dynamic_resource_parameters_s *res);
-#endif
 
 /**
  * \fn  extern int8_t sn_nsdl_put_resource(struct nsdl_s *handle, const sn_nsdl_dynamic_resource_parameters_s *res);
