@@ -52,11 +52,7 @@ bool test_sn_nsdl_list_resource();
 
 bool test_sn_nsdl_free_resource_list();
 
-bool test_sn_nsdl_update_resource();
-
 bool test_sn_nsdl_send_coap_message();
-
-bool test_sn_nsdl_create_resource();
 
 bool test_sn_nsdl_put_resource();
 

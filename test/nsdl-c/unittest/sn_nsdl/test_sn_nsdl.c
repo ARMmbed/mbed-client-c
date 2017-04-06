@@ -286,15 +286,11 @@ bool test_sn_nsdl_register_endpoint()
     sn_grs_stub.expectedInfo->static_resource_parameters->path = malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->path[0] = 'a';
     sn_grs_stub.expectedInfo->static_resource_parameters->path[1] = '\0';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource = (uint8_t*)malloc(2);
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource[0] = 'a';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource[1] = '\0';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resourcelen = 1;
+
     sn_grs_stub.expectedInfo->publish_uri = 1;
     //sn_nsdl_build_registration_body == SN_NSDL_FAILURE
     int8_t val = sn_nsdl_register_endpoint(handle, eptr);
 
-    free(sn_grs_stub.expectedInfo->static_resource_parameters->resource);
     free(sn_grs_stub.expectedInfo->static_resource_parameters->path);
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
@@ -364,10 +360,7 @@ bool test_sn_nsdl_register_endpoint()
     sn_grs_stub.expectedInfo->static_resource_parameters->path = malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->path[0] = 'a';
     sn_grs_stub.expectedInfo->static_resource_parameters->path[1] = '\0';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource = (uint8_t*)malloc(2);
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource[0] = 'a';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource[1] = '\0';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resourcelen = 1;
+
     sn_grs_stub.expectedInfo->publish_uri = 1;
     eptr->binding_and_mode = 0x06;
     retCounter = 7;
@@ -376,7 +369,6 @@ bool test_sn_nsdl_register_endpoint()
     sn_coap_protocol_stub.expectedInt16 = 1;
     //passes
     val = sn_nsdl_register_endpoint(handle, eptr);
-    free(sn_grs_stub.expectedInfo->static_resource_parameters->resource);
     free(sn_grs_stub.expectedInfo->static_resource_parameters->path);
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
@@ -415,10 +407,6 @@ bool test_sn_nsdl_register_endpoint()
     sn_grs_stub.expectedInfo->static_resource_parameters->path = malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->path[0] = 'a';
     sn_grs_stub.expectedInfo->static_resource_parameters->path[1] = '\0';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource = (uint8_t*)malloc(2);
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource[0] = 'a';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource[1] = '\0';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resourcelen = 1;
     sn_grs_stub.expectedInfo->publish_uri = 1;
     eptr->binding_and_mode = 0x06;
     retCounter = 7;
@@ -428,7 +416,6 @@ bool test_sn_nsdl_register_endpoint()
     sn_coap_protocol_stub.expectedInt8 = 1;
     //passes
     val = sn_nsdl_register_endpoint(handle, eptr);
-    free(sn_grs_stub.expectedInfo->static_resource_parameters->resource);
     free(sn_grs_stub.expectedInfo->static_resource_parameters->path);
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
@@ -468,10 +455,6 @@ bool test_sn_nsdl_register_endpoint()
     sn_grs_stub.expectedInfo->static_resource_parameters->path = malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->path[0] = 'a';
     sn_grs_stub.expectedInfo->static_resource_parameters->path[1] = '\0';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource = (uint8_t*)malloc(2);
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource[0] = 'a';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource[1] = '\0';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resourcelen = 1;
     sn_grs_stub.expectedInfo->publish_uri = 1;
     eptr->binding_and_mode = 0x06;
     retCounter = 7;
@@ -480,7 +463,6 @@ bool test_sn_nsdl_register_endpoint()
     sn_coap_protocol_stub.expectedInt16 = 1;
     //passes
     val = sn_nsdl_register_endpoint(handle, eptr);
-    free(sn_grs_stub.expectedInfo->static_resource_parameters->resource);
     free(sn_grs_stub.expectedInfo->static_resource_parameters->path);
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
@@ -518,10 +500,6 @@ bool test_sn_nsdl_register_endpoint()
     sn_grs_stub.expectedInfo->static_resource_parameters->path = (uint8_t*)malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->path[0] = 'a';
     sn_grs_stub.expectedInfo->static_resource_parameters->path[1] = '\0';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource = (uint8_t*)malloc(2);
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource[0] = 'a';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource[1] = '\0';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resourcelen = 1;
     sn_grs_stub.expectedInfo->publish_uri = 1;
     eptr->binding_and_mode = 0x06;
     retCounter = 7;
@@ -530,7 +508,6 @@ bool test_sn_nsdl_register_endpoint()
     sn_coap_protocol_stub.expectedInt16 = 1;
     //passes
     val = sn_nsdl_register_endpoint(handle, eptr);
-    free(sn_grs_stub.expectedInfo->static_resource_parameters->resource);
     free(sn_grs_stub.expectedInfo->static_resource_parameters->path);
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
@@ -566,10 +543,6 @@ bool test_sn_nsdl_register_endpoint()
 
     sn_grs_stub.expectedInfo->static_resource_parameters->path = (uint8_t*)malloc(UINT16_MAX);
     sn_grs_stub.expectedInfo->static_resource_parameters->path[UINT16_MAX-1] = '\0' ;
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource = (uint8_t*)malloc(2);
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource[0] = 'a';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource[1] = '\0';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resourcelen = 1;
     sn_grs_stub.expectedInfo->publish_uri = 1;
     eptr->binding_and_mode = 0x06;
     retCounter = 7;
@@ -578,7 +551,6 @@ bool test_sn_nsdl_register_endpoint()
     sn_coap_protocol_stub.expectedInt16 = 1;
     //passes
     val = sn_nsdl_register_endpoint(handle, eptr);
-    free(sn_grs_stub.expectedInfo->static_resource_parameters->resource);
     free(sn_grs_stub.expectedInfo->static_resource_parameters->path);
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
@@ -616,10 +588,6 @@ bool test_sn_nsdl_register_endpoint()
     sn_grs_stub.expectedInfo->static_resource_parameters->path = (uint8_t*)malloc(UINT16_MAX-26);
     memset(sn_grs_stub.expectedInfo->static_resource_parameters->path,'a', UINT16_MAX-26);
     sn_grs_stub.expectedInfo->static_resource_parameters->path[UINT16_MAX-26-1] = '\0' ;
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource = (uint8_t*)malloc(2);
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource[0] = 'a';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource[1] = '\0';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resourcelen = 1;
     sn_grs_stub.expectedInfo->publish_uri = 1;
     eptr->binding_and_mode = 0x06;
     retCounter = 7;
@@ -628,7 +596,6 @@ bool test_sn_nsdl_register_endpoint()
     sn_coap_protocol_stub.expectedInt16 = 1;
     //passes
     val = sn_nsdl_register_endpoint(handle, eptr);
-    free(sn_grs_stub.expectedInfo->static_resource_parameters->resource);
     free(sn_grs_stub.expectedInfo->static_resource_parameters->path);
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
@@ -666,10 +633,6 @@ bool test_sn_nsdl_register_endpoint()
     sn_grs_stub.expectedInfo->static_resource_parameters->path = malloc(UINT16_MAX-27);
     memset(sn_grs_stub.expectedInfo->static_resource_parameters->path, 'a', UINT16_MAX-27);
     sn_grs_stub.expectedInfo->static_resource_parameters->path[UINT16_MAX-27-1] = '\0' ;
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource = (uint8_t*)malloc(2);
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource[0] = 'a';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource[1] = '\0';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resourcelen = 1;
     sn_grs_stub.expectedInfo->publish_uri = 1;
     eptr->binding_and_mode = 0x06;
     retCounter = 7;
@@ -678,7 +641,6 @@ bool test_sn_nsdl_register_endpoint()
     sn_coap_protocol_stub.expectedInt16 = 1;
     //passes
     val = sn_nsdl_register_endpoint(handle, eptr);
-    free(sn_grs_stub.expectedInfo->static_resource_parameters->resource);
     free(sn_grs_stub.expectedInfo->static_resource_parameters->path);
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
@@ -716,10 +678,6 @@ bool test_sn_nsdl_register_endpoint()
     sn_grs_stub.expectedInfo->static_resource_parameters->path = (uint8_t*)malloc(UINT16_MAX-28);
     memset(sn_grs_stub.expectedInfo->static_resource_parameters->path, 'a', UINT16_MAX-28);
     sn_grs_stub.expectedInfo->static_resource_parameters->path[UINT16_MAX-28-1];
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource = (uint8_t*)malloc(2);
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource[0] = 'a';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource[1] = '\0';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resourcelen = 1;
     sn_grs_stub.expectedInfo->publish_uri = 1;
     eptr->binding_and_mode = 0x06;
     retCounter = 7;
@@ -728,7 +686,6 @@ bool test_sn_nsdl_register_endpoint()
     sn_coap_protocol_stub.expectedInt16 = 1;
     //passes
     val = sn_nsdl_register_endpoint(handle, eptr);
-    free(sn_grs_stub.expectedInfo->static_resource_parameters->resource);
     free(sn_grs_stub.expectedInfo->static_resource_parameters->path);
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
@@ -764,10 +721,6 @@ bool test_sn_nsdl_register_endpoint()
     sn_grs_stub.expectedInfo->static_resource_parameters->path = (uint8_t*)malloc(2);
     sn_grs_stub.expectedInfo->static_resource_parameters->path[0] = 'a';
     sn_grs_stub.expectedInfo->static_resource_parameters->path[1] = '\0';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource = (uint8_t*)malloc(2);
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource[0] = 'a';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource[1] = '\0';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resourcelen = 1;
     sn_grs_stub.expectedInfo->publish_uri = 1;
     eptr->binding_and_mode = 0x06;
     retCounter = 4;
@@ -775,7 +728,6 @@ bool test_sn_nsdl_register_endpoint()
     sn_coap_protocol_stub.expectedInt16 = 1;
     //set_endpoint_info == -1
     val = sn_nsdl_register_endpoint(handle, eptr);
-    free(sn_grs_stub.expectedInfo->static_resource_parameters->resource);
     free(sn_grs_stub.expectedInfo->static_resource_parameters->path);
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
@@ -954,16 +906,11 @@ bool test_sn_nsdl_update_registration()
     sn_grs_stub.expectedInfo->static_resource_parameters->path[0] = 'a';
     sn_grs_stub.expectedInfo->static_resource_parameters->path[1] = '\0';
     //sn_grs_stub.expectedInfo->static_resource_parameters->pathlen = 1;
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource = (uint8_t*)malloc(2);
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource[0] = 'a';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resource[1] = '\0';
-    sn_grs_stub.expectedInfo->static_resource_parameters->resourcelen = 1;
     sn_grs_stub.expectedInfo->publish_uri = 1;
 
     sn_coap_builder_stub.expectedUint16 = 1;
     int8_t val = sn_nsdl_update_registration(handle, NULL, 0);
 
-    free(sn_grs_stub.expectedInfo->static_resource_parameters->resource);
     free(sn_grs_stub.expectedInfo->static_resource_parameters->path);
 #ifndef DISABLE_INTERFACE_DESCRIPTION
     free(sn_grs_stub.expectedInfo->static_resource_parameters->interface_description_ptr);
@@ -2626,25 +2573,6 @@ bool test_sn_nsdl_free_resource_list()
     return true;
 }
 
-bool test_sn_nsdl_update_resource()
-{
-    if( SN_NSDL_FAILURE != sn_nsdl_update_resource(NULL, NULL) ){
-        return false;
-    }
-    sn_grs_stub.retNull = false;
-    retCounter = 4;
-    sn_grs_stub.expectedGrs = (struct grs_s *)malloc(sizeof(struct grs_s));
-    memset(sn_grs_stub.expectedGrs,0, sizeof(struct grs_s));
-    struct nsdl_s* handle = sn_nsdl_init(&nsdl_tx_callback, &nsdl_rx_callback, &myMalloc, &myFree);
-
-    if( 0 != sn_nsdl_update_resource(handle, NULL) ){
-        return false;
-    }
-
-    sn_nsdl_destroy(handle);
-    return true;
-}
-
 bool test_sn_nsdl_send_coap_message()
 {
     if( SN_NSDL_FAILURE != sn_nsdl_send_coap_message(NULL, NULL, NULL) ){
@@ -2657,25 +2585,6 @@ bool test_sn_nsdl_send_coap_message()
     struct nsdl_s* handle = sn_nsdl_init(&nsdl_tx_callback, &nsdl_rx_callback, &myMalloc, &myFree);
 
     if( 0 != sn_nsdl_send_coap_message(handle, NULL, NULL) ){
-        return false;
-    }
-
-    sn_nsdl_destroy(handle);
-    return true;
-}
-
-bool test_sn_nsdl_create_resource()
-{
-    if( SN_NSDL_FAILURE != sn_nsdl_create_resource(NULL, NULL) ){
-        return false;
-    }
-    sn_grs_stub.retNull = false;
-    retCounter = 4;
-    sn_grs_stub.expectedGrs = (struct grs_s *)malloc(sizeof(struct grs_s));
-    memset(sn_grs_stub.expectedGrs,0, sizeof(struct grs_s));
-    struct nsdl_s* handle = sn_nsdl_init(&nsdl_tx_callback, &nsdl_rx_callback, &myMalloc, &myFree);
-
-    if( 0 != sn_nsdl_create_resource(handle, NULL) ){
         return false;
     }
 
