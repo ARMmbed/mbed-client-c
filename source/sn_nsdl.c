@@ -1749,3 +1749,14 @@ extern void *sn_nsdl_get_context(const struct nsdl_s * const handle)
     }
     return handle->context;
 }
+
+
+int8_t sn_nsdl_clear_coap_resending_queue(struct nsdl_s *handle)
+{
+    if (handle == NULL) {
+        return SN_NSDL_FAILURE;
+    }
+    sn_coap_protocol_clear_retransmission_buffer(handle->grs->coap);
+    return 0;
+}
+
