@@ -2628,12 +2628,16 @@ bool test_sn_nsdl_put_resource()
         .path = "hello",
         .pathlen = 5
     };
-    
+
     sn_nsdl_dynamic_resource_parameters_s dyn_res = {
         .static_resource_parameters = &static_res
     };
 
     if( 0 != sn_nsdl_put_resource(handle, &dyn_res) ){
+        return false;
+    }
+
+    if( SN_NSDL_FAILURE != sn_nsdl_pop_resource(NULL, &dyn_res) ){
         return false;
     }
 
@@ -2874,6 +2878,24 @@ bool test_sn_nsdl_alloc_options_list()
     sn_coap_hdr_s* list = (sn_coap_hdr_s*)calloc(sizeof(sn_coap_hdr_s), 1);
     sn_nsdl_alloc_options_list(handle, list);
     free(list);
+    sn_nsdl_destroy(handle);
+    return true;
+}
+
+bool test_sn_nsdl_clear_coap_resending_queue()
+{
+    if (SN_NSDL_FAILURE != sn_nsdl_clear_coap_resending_queue(NULL) ) {
+        return false;
+    }
+    retCounter = 4;
+    sn_grs_stub.expectedGrs = (struct grs_s *)malloc(sizeof(struct grs_s));
+    memset(sn_grs_stub.expectedGrs,0, sizeof(struct grs_s));
+    struct nsdl_s* handle = sn_nsdl_init(&nsdl_tx_callback, &nsdl_rx_callback, &myMalloc, &myFree);
+
+    if (SN_NSDL_SUCCESS != sn_nsdl_clear_coap_resending_queue(handle)) {
+        return false;
+    }
+
     sn_nsdl_destroy(handle);
     return true;
 }

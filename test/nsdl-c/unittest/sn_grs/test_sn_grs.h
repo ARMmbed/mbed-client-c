@@ -22,6 +22,7 @@ bool test_sn_grs_update_resource();
 bool test_sn_grs_send_coap_message();
 bool test_sn_grs_create_resource();
 bool test_sn_grs_put_resource();
+bool test_sn_grs_pop_resource();
 bool test_sn_grs_delete_resource();
 bool test_sn_grs_mark_resources_as_registered();
 
