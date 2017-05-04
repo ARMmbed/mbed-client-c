@@ -657,6 +657,16 @@ extern int8_t sn_nsdl_set_context(struct nsdl_s * const handle, void * const con
  */
 extern void *sn_nsdl_get_context(const struct nsdl_s * const handle);
 
+/**
+ * \fn int8_t sn_nsdl_clear_coap_resending_queue(struct nsdl_s *handle)
+ *
+ * \brief Clean confirmable message list.
+ *
+ * \param *handle Pointer to library handle
+ * \return  0 = success, -1 = failure
+ */
+extern int8_t sn_nsdl_clear_coap_resending_queue(struct nsdl_s *handle);
+
 #ifdef __cplusplus
 }
 #endif

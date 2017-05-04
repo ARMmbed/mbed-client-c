@@ -625,6 +625,69 @@ bool test_sn_grs_put_resource()
     return true;
 }
 
+bool test_sn_grs_pop_resource()
+{
+    if( SN_NSDL_FAILURE != sn_grs_pop_resource(NULL, NULL) ){
+        return false;
+    }
+
+    struct grs_s* handle = (struct grs_s*)malloc(sizeof(struct grs_s));
+    memset(handle, 0, sizeof(struct grs_s));
+    handle->sn_grs_alloc = myMalloc;
+    handle->sn_grs_free = myFree;
+    //First put one resource
+    sn_nsdl_dynamic_resource_parameters_s* res = (sn_nsdl_dynamic_resource_parameters_s*)malloc(sizeof(sn_nsdl_dynamic_resource_parameters_s));
+    memset(res, 0, sizeof(sn_nsdl_dynamic_resource_parameters_s));
+    res->static_resource_parameters = (sn_nsdl_static_resource_parameters_s*)malloc(sizeof(sn_nsdl_static_resource_parameters_s));
+    memset(res->static_resource_parameters, 0, sizeof(sn_nsdl_static_resource_parameters_s));
+    res->static_resource_parameters->pathlen = 1;
+    res->free_on_delete = true;
+    res->static_resource_parameters->free_on_delete = true;
+
+    if( SN_GRS_INVALID_PATH != sn_grs_pop_resource(handle, res) ){
+        return false;
+    }
+
+    res->static_resource_parameters->path = (uint8_t*)malloc(2);
+    res->static_resource_parameters->pathlen = 1;
+    res->static_resource_parameters->path[0] = 'a';
+    res->static_resource_parameters->path[1] = '\0';
+    res->static_resource_parameters->resource = (uint8_t*)malloc(2);
+    res->static_resource_parameters->resourcelen = 1;
+    res->static_resource_parameters->resource[0] = 'a';
+    res->static_resource_parameters->resource[1] = '\0';
+    res->static_resource_parameters->resource_type_ptr = (uint8_t*)malloc(2);
+    res->static_resource_parameters->resource_type_ptr[0] = 'a';
+    res->static_resource_parameters->resource_type_ptr[1] = '\0';
+    res->static_resource_parameters->interface_description_ptr = (uint8_t*)malloc(2);
+    res->static_resource_parameters->interface_description_ptr[0] = 'a';
+    res->static_resource_parameters->interface_description_ptr[1] = '\0';
+
+    //not found case
+    if( SN_NSDL_FAILURE != sn_grs_pop_resource(handle, res) ){
+        return false;
+    }
+
+    if( SN_NSDL_SUCCESS != sn_grs_put_resource(handle, res) ){
+        return false;
+    }
+
+    //And then pop it
+    if( SN_NSDL_SUCCESS != sn_grs_pop_resource(handle, res) ){
+        return false;
+    }
+
+    free(res->static_resource_parameters->interface_description_ptr);
+    free(res->static_resource_parameters->resource_type_ptr);
+    free(res->static_resource_parameters->resource);
+    free(res->static_resource_parameters->path);
+    free(res->static_resource_parameters);
+    free(res);
+    sn_grs_destroy(handle);
+
+    return true;
+}
+
 bool test_sn_grs_process_coap()
 {
     if( SN_NSDL_FAILURE != sn_grs_process_coap(NULL, NULL, NULL) ){

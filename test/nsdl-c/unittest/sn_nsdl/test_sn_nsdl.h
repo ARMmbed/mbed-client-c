@@ -84,6 +84,8 @@ bool test_sn_nsdl_get_context();
 
 bool test_sn_nsdl_alloc_options_list();
 
+bool test_sn_nsdl_clear_coap_resending_queue();
+
 #ifdef __cplusplus
 }
 #endif

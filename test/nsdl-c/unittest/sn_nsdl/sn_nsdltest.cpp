@@ -179,3 +179,9 @@ TEST(sn_nsdl, test_sn_nsdl_alloc_options_list)
 {
     CHECK(test_sn_nsdl_alloc_options_list());
 }
+
+TEST(sn_nsdl, test_sn_nsdl_clear_coap_resending_queue)
+{
+    CHECK(test_sn_nsdl_clear_coap_resending_queue());
+}
+
