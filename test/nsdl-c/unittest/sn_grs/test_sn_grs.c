@@ -489,7 +489,6 @@ bool test_sn_grs_pop_resource()
     memset(res, 0, sizeof(sn_nsdl_dynamic_resource_parameters_s));
     res->static_resource_parameters = (sn_nsdl_static_resource_parameters_s*)malloc(sizeof(sn_nsdl_static_resource_parameters_s));
     memset(res->static_resource_parameters, 0, sizeof(sn_nsdl_static_resource_parameters_s));
-    res->static_resource_parameters->pathlen = 1;
     res->free_on_delete = true;
     res->static_resource_parameters->free_on_delete = true;
 
@@ -498,13 +497,12 @@ bool test_sn_grs_pop_resource()
     }
 
     res->static_resource_parameters->path = (uint8_t*)malloc(2);
-    res->static_resource_parameters->pathlen = 1;
     res->static_resource_parameters->path[0] = 'a';
     res->static_resource_parameters->path[1] = '\0';
-    res->static_resource_parameters->resource = (uint8_t*)malloc(2);
-    res->static_resource_parameters->resourcelen = 1;
-    res->static_resource_parameters->resource[0] = 'a';
-    res->static_resource_parameters->resource[1] = '\0';
+    res->resource = (uint8_t*)malloc(2);
+    res->resourcelen = 1;
+    res->resource[0] = 'a';
+    res->resource[1] = '\0';
     res->static_resource_parameters->resource_type_ptr = (uint8_t*)malloc(2);
     res->static_resource_parameters->resource_type_ptr[0] = 'a';
     res->static_resource_parameters->resource_type_ptr[1] = '\0';
@@ -528,7 +526,7 @@ bool test_sn_grs_pop_resource()
 
     free(res->static_resource_parameters->interface_description_ptr);
     free(res->static_resource_parameters->resource_type_ptr);
-    free(res->static_resource_parameters->resource);
+    free(res->resource);
     free(res->static_resource_parameters->path);
     free(res->static_resource_parameters);
     free(res);
