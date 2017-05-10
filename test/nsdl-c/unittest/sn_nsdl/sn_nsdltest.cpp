@@ -100,19 +100,9 @@ TEST(sn_nsdl, test_sn_nsdl_free_resource_list)
     CHECK(test_sn_nsdl_free_resource_list());
 }
 
-TEST(sn_nsdl, test_sn_nsdl_update_resource)
-{
-    CHECK(test_sn_nsdl_update_resource());
-}
-
 TEST(sn_nsdl, test_sn_nsdl_send_coap_message)
 {
     CHECK(test_sn_nsdl_send_coap_message());
-}
-
-TEST(sn_nsdl, test_sn_nsdl_create_resource)
-{
-    CHECK(test_sn_nsdl_create_resource());
 }
 
 TEST(sn_nsdl, test_sn_nsdl_put_resource)

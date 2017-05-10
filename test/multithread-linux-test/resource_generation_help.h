@@ -46,8 +46,10 @@
 	resource_structure->mode = SN_GRS_DYNAMIC;														\
 	resource_structure->pathlen = pt_len; 															\
 	resource_structure->path = pt; 																	\
+#ifndef DISABLE_RESOURCE_TYPE
 	resource_structure->resource_parameters_ptr->resource_type_len = rpp_len; 						\
 	resource_structure->resource_parameters_ptr->resource_type_ptr = rpp_ptr; 						\
+#endif
 	resource_structure->resource_parameters_ptr->observable = is_observable; 						\
     sn_nsdl_create_resource(handle,resource_structure); 													\
 }

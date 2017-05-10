@@ -56,19 +56,9 @@ TEST(sn_grs, test_sn_grs_free_resource_list)
     CHECK(test_sn_grs_free_resource_list());
 }
 
-TEST(sn_grs, test_sn_grs_update_resource)
-{
-    CHECK(test_sn_grs_update_resource());
-}
-
 TEST(sn_grs, test_sn_grs_send_coap_message)
 {
     CHECK(test_sn_grs_send_coap_message());
-}
-
-TEST(sn_grs, test_sn_grs_create_resource)
-{
-    CHECK(test_sn_grs_create_resource());
 }
 
 TEST(sn_grs, test_sn_grs_put_resource)
