@@ -1,6 +1,6 @@
 {
   "name": "mbed-client-c",
-  "version": "5.0.1",
+  "version": "6.0.0",
   "description": "Nanostack NSDL library",
   "keywords": [
     "nanostack"
